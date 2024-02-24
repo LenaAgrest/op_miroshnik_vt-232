@@ -24,3 +24,8 @@ vector createVector(size_t n){
 
     return new;
 }
+
+void exceptBadAlloc(){
+    fprintf(stderr, "bad alloc");
+    exit(1);
+}
