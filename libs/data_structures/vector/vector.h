@@ -82,3 +82,33 @@ void pushBack(vector *v, int x) {
     v->data[v->size] = x;
     v->size++;
 }
+
+void popBack(vector *v) {
+    if (v->size == 0) {
+        fprintf(stderr, "Error, vector is empty!");
+        exit(1);
+    }
+
+    v->size--;
+
+    if (v->size < v->capacity / 2) {
+        reserve(v, v->capacity / 2);
+    }
+}
+
+int *atVector(vector *v, size_t index) {
+    if (index >= v->size) {
+        fprintf(stderr, "IndexError: a[index] is not exists");
+        exit(1);
+    } else{
+        return &(v->data[index]);
+    }
+}
+
+int* back(vector *v) {
+    return &(v->data[v->size - 1]);
+}
+
+int* front(vector *v) {
+    return &(v->data[0]);
+}
