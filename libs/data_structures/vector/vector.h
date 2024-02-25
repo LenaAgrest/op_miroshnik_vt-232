@@ -60,3 +60,25 @@ void deleteVector(vector *v) {
     v->size = 0;
     v->capacity = 0;
 }
+
+bool isEmpty(vector *v) {
+    return (v->size == 0);
+}
+
+bool isFull(vector *v) {
+    return (v->size == v->capacity);
+}
+
+int getVectorValue(vector *v, size_t i) {
+    return (v->data[i]);
+}
+
+void pushBack(vector *v, int x) {
+    if (v->capacity == 0) {
+        reserve(v, 1);
+    } else if (v->capacity == v->size) {
+        reserve(v, v->capacity * 2);
+    }
+    v->data[v->size] = x;
+    v->size++;
+}
