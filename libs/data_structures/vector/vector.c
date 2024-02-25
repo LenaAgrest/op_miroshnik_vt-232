@@ -5,6 +5,10 @@
 int main() {
 
 vector v = createVector(SIZE_MAX);
+
+void reserve(vector *v, size_t newCapacity);
+
+
 return 0;
 
 }

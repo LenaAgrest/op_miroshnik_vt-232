@@ -25,6 +25,22 @@ vector createVector(size_t n){
     return new;
 }
 
+void reserve(vector *v, size_t newCapacity) {
+    if (newCapacity > v->capacity) {
+        int *newData = (int *) realloc(v->data, newCapacity * sizeof(int));
+        if (newData == NULL) {
+            fprintf(stderr, "Failed to reallocate memory for the vector\n");
+            exit(1);
+        }
+        v->data = newData;
+        v->capacity = newCapacity;
+    } else if (newCapacity == 0) {
+        v->data = NULL;
+    } else if (newCapacity < v->size) {
+        v->size = newCapacity;
+    }
+}
+
 void exceptBadAlloc(){
     fprintf(stderr, "bad alloc");
     exit(1);
