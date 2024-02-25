@@ -81,6 +81,7 @@ void pushBack(vector *v, int x) {
     }
     v->data[v->size] = x;
     v->size++;
+    printf("");
 }
 
 void popBack(vector *v) {
