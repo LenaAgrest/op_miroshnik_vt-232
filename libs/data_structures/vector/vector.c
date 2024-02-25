@@ -8,6 +8,11 @@ vector v = createVector(SIZE_MAX);
 
 void reserve(vector *v, size_t newCapacity);
 
+void clear(vector *v);
+
+void shrinkToFit(vector *v);
+
+void deleteVector(vector *v);
 
 return 0;
 

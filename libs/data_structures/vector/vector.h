@@ -45,3 +45,18 @@ void exceptBadAlloc(){
     fprintf(stderr, "bad alloc");
     exit(1);
 }
+
+void clear(vector *v) {
+    v->size = 0;
+}
+
+void shrinkToFit(vector *v) {
+    int *new_data = (int *) realloc(v->data, v->size * sizeof(int));
+}
+
+void deleteVector(vector *v) {
+    free(v->data);
+    v->data = NULL;
+    v->size = 0;
+    v->capacity = 0;
+}
