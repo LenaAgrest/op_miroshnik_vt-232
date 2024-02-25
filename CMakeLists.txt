@@ -1,9 +1,14 @@
 cmake_minimum_required(VERSION 3.10)
-
-# set the project name
 project(lr14)
+
+set(CMAKE_C_STANDARD 11)
 
 # add the executable
 add_executable(
-vector/vector.c
-vector/vector.h)
+        main.c
+        libs/data_structures/vector/vector.h
+        libs/data_structures/vector/vector.c
+        libs/data_structures/vector/test.c
+        libs/data_structures/vector/test.h
+        libs/data_structures/vector/vectorVoid.c
+        libs/data_structures/vector/vectorVoid.h)

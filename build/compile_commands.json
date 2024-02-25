@@ -1,0 +1,17 @@
+[
+{
+  "directory": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\PROFES~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx86\\x86\\cl.exe  /nologo /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11 /FoCMakeFiles\\main.c.dir\\libs\\data_structures\\vector\\vector.c.obj /FdTARGET_COMPILE_PDB /FS -c \"C:\\Users\\wwwri\\OneDrive\\Рабочий стол\\2 семестр\\оп\\lab 14\\op_miroshnik_vt-232\\libs\\data_structures\\vector\\vector.c\"",
+  "file": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/libs/data_structures/vector/vector.c"
+},
+{
+  "directory": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\PROFES~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx86\\x86\\cl.exe  /nologo /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11 /FoCMakeFiles\\main.c.dir\\libs\\data_structures\\vector\\test.c.obj /FdTARGET_COMPILE_PDB /FS -c \"C:\\Users\\wwwri\\OneDrive\\Рабочий стол\\2 семестр\\оп\\lab 14\\op_miroshnik_vt-232\\libs\\data_structures\\vector\\test.c\"",
+  "file": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/libs/data_structures/vector/test.c"
+},
+{
+  "directory": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build",
+  "command": "C:\\PROGRA~2\\MICROS~2\\2019\\PROFES~1\\VC\\Tools\\MSVC\\1429~1.301\\bin\\Hostx86\\x86\\cl.exe  /nologo /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11 /FoCMakeFiles\\main.c.dir\\libs\\data_structures\\vector\\vectorVoid.c.obj /FdTARGET_COMPILE_PDB /FS -c \"C:\\Users\\wwwri\\OneDrive\\Рабочий стол\\2 семестр\\оп\\lab 14\\op_miroshnik_vt-232\\libs\\data_structures\\vector\\vectorVoid.c\"",
+  "file": "C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/libs/data_structures/vector/vectorVoid.c"
+}
+]
