@@ -2,17 +2,27 @@
 #include <stdlib.h>
 #include "vector.h"
 
-vector createVector(size_t n) {
-    vector v1;
-    v1.data = (int *) malloc(n * sizeof(int));
-    v1.size = 0;
-    v1.capacity = n;
+vector createVector(size_t n){
+    vector new;
 
-    if (v1.data == NULL) {
-        fprintf(stderr, "Failed to allocate memory for the vector\n");
-        exit(1);
+    if (n == 0){
+        new.data = NULL;
+    } else {
+        new.data = (int *) malloc(n * sizeof(int));
+        if (!new.data){
+            exceptBadAlloc();
+        }
     }
-    return v1;
+
+    new.size = 0;
+    new.capacity = n;
+
+    return new;
+}
+
+void exceptBadAlloc(){
+    fprintf(stderr, "bad alloc");
+    exit(1);
 }
 
 void reserve(vector *v, size_t newCapacity) {
