@@ -11,4 +11,6 @@ add_executable(
         libs/data_structures/vector/test.c
         libs/data_structures/vector/test.h
         libs/data_structures/vector/vectorVoid.c
-        libs/data_structures/vector/vectorVoid.h)
+        libs/data_structures/vector/vectorVoid.h
+
+)
