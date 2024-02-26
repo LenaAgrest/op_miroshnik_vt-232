@@ -1,5 +1,5 @@
 #include <stdio.h>
-#include <stdlib.h>
+#include <malloc.h>
 #include "vector.h"
 
 vector createVector(size_t n){
@@ -10,43 +10,39 @@ vector createVector(size_t n){
     } else {
         new.data = (int *) malloc(n * sizeof(int));
         if (!new.data){
-            exceptBadAlloc();
+            fprintf(stderr, "bad alloc");
+            exit(1);
         }
     }
-
     new.size = 0;
     new.capacity = n;
 
     return new;
 }
 
-void exceptBadAlloc(){
-    fprintf(stderr, "bad alloc");
-    exit(1);
-}
-
-void reserve(vector *v, size_t newCapacity) {
-    if (newCapacity > v->capacity) {
-        int *newData = (int *) realloc(v->data, newCapacity * sizeof(int));
-        if (newData == NULL) {
-            fprintf(stderr, "Failed to reallocate memory for the vector\n");
-            exit(1);
-        }
-        v->data = newData;
-        v->capacity = newCapacity;
-    } else if (newCapacity == 0) {
+//изменяет количество памяти, выделенное под хранение элементов вектора.
+void reserve(vector *v, size_t newCapacity){
+    if (newCapacity == 0) {
         v->data = NULL;
-    } else if (newCapacity < v->size) {
+    } else {
+        v->data = (int *) realloc(v->data, sizeof(int) * newCapacity);
+    }
+    if (v->data == NULL) {
+        fprintf(stderr, "bad alloc");
+        exit(1);
+    }
+    if (v->size > newCapacity) {
         v->size = newCapacity;
     }
+    v->capacity = newCapacity;
 }
 
 void clear(vector *v) {
     v->size = 0;
 }
 
-void shrinkToFit(vector *v) {
-    int *new_data = (int *) realloc(v->data, v->size * sizeof(int));
+void shrinkToFit(vector *v){
+    reserve(v, v->size);
 }
 
 void deleteVector(vector *v) {
@@ -74,8 +70,7 @@ void pushBack(vector *v, int x) {
     } else if (v->capacity == v->size) {
         reserve(v, v->capacity * 2);
     }
-    v->data[v->size] = x;
-    v->size++;
+    v->data[v->size++] = x;
 }
 
 void popBack(vector *v) {
