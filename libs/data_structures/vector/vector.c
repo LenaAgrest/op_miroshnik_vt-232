@@ -10,7 +10,8 @@ vector createVector(size_t n){
     } else {
         new.data = (int *) malloc(n * sizeof(int));
         if (!new.data){
-            exceptBadAlloc();
+            fprintf(stderr, "bad alloc");
+            exit(1);
         }
     }
 
@@ -18,11 +19,6 @@ vector createVector(size_t n){
     new.capacity = n;
 
     return new;
-}
-
-void exceptBadAlloc(){
-    fprintf(stderr, "bad alloc");
-    exit(1);
 }
 
 void reserve(vector *v, size_t newCapacity) {
