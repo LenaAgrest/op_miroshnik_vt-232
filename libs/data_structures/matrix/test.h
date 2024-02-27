@@ -7,3 +7,7 @@ void testInputMatrix();
 void testOutputMatrix();
 
 void testOutputMatrices();
+
+void testSwapRows();
+
+void testSwapColumns();
