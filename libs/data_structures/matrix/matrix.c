@@ -63,3 +63,10 @@ void outputMatrix(matrix m) {
     }
     printf("\n");
 }
+
+void outputMatrices(matrix *ms, int nMatrices) {
+    for (int i = 0; i < nMatrices; i++) {
+        printf("Matrix %d:\n", i + 1);
+        outputMatrix(ms[i]);
+    }
+}
