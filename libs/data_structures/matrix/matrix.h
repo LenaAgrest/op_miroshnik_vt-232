@@ -11,3 +11,11 @@ int colIndex;
 matrix getMemMatrix(int nRows, int nCols);
 
 matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols);
+
+void freeMemMatrix(matrix *m);
+
+void freeMemMatrices(matrix *ms, int nMatrices);
+
+void inputMatrix(matrix *m);
+
+void outputMatrix(matrix m);
