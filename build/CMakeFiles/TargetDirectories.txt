@@ -1,3 +1,2 @@
-C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build/CMakeFiles/main.c.dir
 C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build/CMakeFiles/edit_cache.dir
 C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build/CMakeFiles/rebuild_cache.dir

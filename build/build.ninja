@@ -34,56 +34,6 @@ CONFIGURATION = Debug
 
 include CMakeFiles\rules.ninja
 
-# =============================================================================
-# Object build statements for EXECUTABLE target main.c
-
-
-#############################################
-# Order-only phony target for main.c
-
-build cmake_object_order_depends_target_main.c: phony || CMakeFiles\main.c.dir
-
-build CMakeFiles\main.c.dir\libs\data_structures\vector\vector.c.obj: C_COMPILER__main.2ec_Debug ..\libs\data_structures\vector\vector.c || cmake_object_order_depends_target_main.c
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11
-  OBJECT_DIR = CMakeFiles\main.c.dir
-  OBJECT_FILE_DIR = CMakeFiles\main.c.dir\libs\data_structures\vector
-  TARGET_COMPILE_PDB = CMakeFiles\main.c.dir\
-  TARGET_PDB = main.c.pdb
-
-build CMakeFiles\main.c.dir\libs\data_structures\vector\test.c.obj: C_COMPILER__main.2ec_Debug ..\libs\data_structures\vector\test.c || cmake_object_order_depends_target_main.c
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11
-  OBJECT_DIR = CMakeFiles\main.c.dir
-  OBJECT_FILE_DIR = CMakeFiles\main.c.dir\libs\data_structures\vector
-  TARGET_COMPILE_PDB = CMakeFiles\main.c.dir\
-  TARGET_PDB = main.c.pdb
-
-build CMakeFiles\main.c.dir\libs\data_structures\vector\vectorVoid.c.obj: C_COMPILER__main.2ec_Debug ..\libs\data_structures\vector\vectorVoid.c || cmake_object_order_depends_target_main.c
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1 -std:c11
-  OBJECT_DIR = CMakeFiles\main.c.dir
-  OBJECT_FILE_DIR = CMakeFiles\main.c.dir\libs\data_structures\vector
-  TARGET_COMPILE_PDB = CMakeFiles\main.c.dir\
-  TARGET_PDB = main.c.pdb
-
-
-# =============================================================================
-# Link build statements for EXECUTABLE target main.c
-
-
-#############################################
-# Link the executable main.c.exe
-
-build main.c.exe: C_EXECUTABLE_LINKER__main.2ec_Debug CMakeFiles\main.c.dir\libs\data_structures\vector\vector.c.obj CMakeFiles\main.c.dir\libs\data_structures\vector\test.c.obj CMakeFiles\main.c.dir\libs\data_structures\vector\vectorVoid.c.obj
-  FLAGS = /DWIN32 /D_WINDOWS /W3 /MDd /Zi /Ob0 /Od /RTC1
-  LINK_FLAGS = /machine:X86 /debug /INCREMENTAL /subsystem:console
-  LINK_LIBRARIES = kernel32.lib user32.lib gdi32.lib winspool.lib shell32.lib ole32.lib oleaut32.lib uuid.lib comdlg32.lib advapi32.lib
-  OBJECT_DIR = CMakeFiles\main.c.dir
-  POST_BUILD = cd .
-  PRE_LINK = cd .
-  TARGET_COMPILE_PDB = CMakeFiles\main.c.dir\
-  TARGET_FILE = main.c.exe
-  TARGET_IMPLIB = main.c.lib
-  TARGET_PDB = main.c.pdb
-
 
 #############################################
 # Utility command for edit_cache
@@ -110,8 +60,6 @@ build rebuild_cache: phony CMakeFiles\rebuild_cache.util
 # =============================================================================
 # Target aliases.
 
-build main.c: phony main.c.exe
-
 # =============================================================================
 # Folder targets.
 
@@ -120,7 +68,7 @@ build main.c: phony main.c.exe
 #############################################
 # Folder: C:/Users/wwwri/OneDrive/Рабочий стол/2 семестр/оп/lab 14/op_miroshnik_vt-232/build
 
-build all: phony main.c.exe
+build all: phony
 
 # =============================================================================
 # Built-in targets
