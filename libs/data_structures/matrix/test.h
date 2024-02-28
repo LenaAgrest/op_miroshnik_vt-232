@@ -15,3 +15,11 @@ void testSwapColumns();
 void testInsertionSortRowsMatrixByRowCriteria();
 
 void testSelectionSortColsMatrixByColCriteria();
+
+void testIsSquareMatrix();
+
+void testAreTwoMatricesEqual();
+
+void testIsEMatrix();
+
+void testIsSymmetricMatrix();

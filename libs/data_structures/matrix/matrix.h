@@ -1,3 +1,5 @@
+#include <stdbool.h>
+
 typedef struct matrix {
 int **values; // элементы матрицы
 int nRows; // количество рядов
@@ -31,3 +33,11 @@ int compareRows(int *row1, int *row2, int nCols);
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int));
 
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int));
+
+bool isSquareMatrix(matrix *m);
+
+bool areTwoMatricesEqual(matrix *m1, matrix *m2);
+
+bool isEMatrix(matrix *m);
+
+bool isSymmetricMatrix(matrix *m);

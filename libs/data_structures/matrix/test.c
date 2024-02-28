@@ -139,13 +139,11 @@ void testSwapRows() {
     testMatrix.nRows = 3;
     testMatrix.nCols = 2;
 
-    // Выделяем память для значений матрицы
     testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
     for (int i = 0; i < testMatrix.nRows; i++) {
         testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
     }
 
-    // Имитируем заполнение матрицы значениями
     int counter = 1;
     for (int i = 0; i < testMatrix.nRows; i++) {
         for (int j = 0; j < testMatrix.nCols; j++) {
@@ -275,6 +273,134 @@ void testSelectionSortColsMatrixByColCriteria() {
     free(testMatrix.values);
 }
 
+void testIsSquareMatrix() {
+    matrix squareMatrix;
+    squareMatrix.nRows = 3;
+    squareMatrix.nCols = 3;
+
+    squareMatrix.values = (int **)malloc(sizeof(int *) * squareMatrix.nRows);
+    for (int i = 0; i < squareMatrix.nRows; i++) {
+        squareMatrix.values[i] = (int *)malloc(sizeof(int) * squareMatrix.nCols);
+    }
+
+    assert(isSquareMatrix(&squareMatrix) == true);
+
+    for (int i = 0; i < squareMatrix.nRows; i++) {
+        free(squareMatrix.values[i]);
+    }
+    free(squareMatrix.values);
+
+    matrix rectangularMatrix;
+    rectangularMatrix.nRows = 3;
+    rectangularMatrix.nCols = 2;
+
+    rectangularMatrix.values = (int **)malloc(sizeof(int *) * rectangularMatrix.nRows);
+    for (int i = 0; i < rectangularMatrix.nRows; i++) {
+        rectangularMatrix.values[i] = (int *)malloc(sizeof(int) * rectangularMatrix.nCols);
+    }
+
+    assert(isSquareMatrix(&rectangularMatrix) == false);
+
+    for (int i = 0; i < rectangularMatrix.nRows; i++) {
+        free(rectangularMatrix.values[i]);
+    }
+    free(rectangularMatrix.values);
+}
+
+void testAreTwoMatricesEqual() {
+    matrix matrix1;
+    matrix1.nRows = 2;
+    matrix1.nCols = 2;
+
+    matrix1.values = (int **)malloc(sizeof(int *) * matrix1.nRows);
+    for (int i = 0; i < matrix1.nRows; i++) {
+        matrix1.values[i] = (int *)malloc(sizeof(int) * matrix1.nCols);
+    }
+    matrix matrix2;
+    matrix2.nRows = 2;
+    matrix2.nCols = 2;
+    matrix2.values = (int **)malloc(sizeof(int *) * matrix2.nRows);
+    for (int i = 0; i < matrix2.nRows; i++) {
+        matrix2.values[i] = (int *)malloc(sizeof(int) * matrix2.nCols);
+    }
+
+    matrix1.values[0][0] = 1;
+    matrix1.values[0][1] = 2;
+    matrix1.values[1][0] = 3;
+    matrix1.values[1][1] = 4;
+    matrix2.values[0][0] = 1;
+    matrix2.values[0][1] = 2;
+    matrix2.values[1][0] = 3;
+    matrix2.values[1][1] = 4;
+
+    assert(areTwoMatricesEqual(&matrix1, &matrix2) == true);
+
+    matrix2.values[1][1] = 5;
+
+    assert(areTwoMatricesEqual(&matrix1, &matrix2) == false);
+
+    for (int i = 0; i < matrix1.nRows; i++) {
+        free(matrix1.values[i]);
+    }
+    free(matrix1.values);
+
+    for (int i = 0; i < matrix2.nRows; i++) {
+        free(matrix2.values[i]);
+    }
+    free(matrix2.values);
+}
+
+void testIsEMatrix() {
+    matrix eMatrix;
+    eMatrix.nRows = 3;
+    eMatrix.nCols = 3;
+
+    eMatrix.values = (int **)malloc(sizeof(int *) * eMatrix.nRows);
+    for (int i = 0; i < eMatrix.nRows; i++) {
+        eMatrix.values[i] = (int *)malloc(sizeof(int) * eMatrix.nCols);
+    }
+
+    for (int i = 0; i < eMatrix.nRows; i++) {
+        for (int j = 0; j < eMatrix.nCols; j++) {
+            eMatrix.values[i][j] = (i == j) ? 1 : 0;
+        }
+    }
+
+    assert(isEMatrix(&eMatrix) == true);
+    eMatrix.values[1][1] = 2;
+    assert(isEMatrix(&eMatrix) == false);
+
+    for (int i = 0; i < eMatrix.nRows; i++) {
+        free(eMatrix.values[i]);
+    }
+    free(eMatrix.values);
+}
+
+void testIsSymmetricMatrix() {
+    matrix symmetricMatrix;
+    symmetricMatrix.nRows = 3;
+    symmetricMatrix.nCols = 3;
+
+    symmetricMatrix.values = (int **)malloc(sizeof(int *) * symmetricMatrix.nRows);
+    for (int i = 0; i < symmetricMatrix.nRows; i++) {
+        symmetricMatrix.values[i] = (int *)malloc(sizeof(int) * symmetricMatrix.nCols);
+    }
+
+    for (int i = 0; i < symmetricMatrix.nRows; i++) {
+        for (int j = 0; j < symmetricMatrix.nCols; j++) {
+            symmetricMatrix.values[i][j] = i + j;
+        }
+    }
+    assert(isSymmetricMatrix(&symmetricMatrix) == true);
+    symmetricMatrix.values[1][2] = 10;
+    assert(isSymmetricMatrix(&symmetricMatrix) == false);
+
+    for (int i = 0; i < symmetricMatrix.nRows; i++) {
+        free(symmetricMatrix.values[i]);
+    }
+    free(symmetricMatrix.values);
+}
+
 int main(){
 void testFreeMemMatrix();
 void testFreeMemMatrices();
@@ -284,6 +410,8 @@ void testOutputMatrices();
 void testSwapRows();
 void testSwapColumns();
 void testInsertionSortRowsMatrixByRowCriteria();
+void testIsSquareMatrix();
+void testAreTwoMatricesEqual();
 
 return 0;
 }
