@@ -580,7 +580,8 @@ void testTransposeSquareMatrix();
 void testTransposeMatrix();
 void testGetMinValuePos();
 void testGetMaxValuePos();
-void test_countZeroRows(); 
+void testCreateMatrixFromArray();
+void testCreateArrayOfMatrixFromArray();
 
 return 0;
 }

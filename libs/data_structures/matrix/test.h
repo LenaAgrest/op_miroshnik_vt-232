@@ -34,4 +34,6 @@ void testGetMaxValuePos();
 
 void test_countZeroRows();
 
+void testCreateMatrixFromArray();
+
 void testCreateArrayOfMatrixFromArray();
