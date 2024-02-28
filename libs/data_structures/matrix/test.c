@@ -463,6 +463,66 @@ void testTransposeMatrix() {
     free(testMatrix.values);
 }
 
+void testGetMinValuePos() {
+    matrix testMatrix;
+    testMatrix.nRows = 3;
+    testMatrix.nCols = 3;
+
+    testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
+    }
+
+    testMatrix.values[0][0] = 5;
+    testMatrix.values[0][1] = 8;
+    testMatrix.values[0][2] = 3;
+    testMatrix.values[1][0] = 2;
+    testMatrix.values[1][1] = 9;
+    testMatrix.values[1][2] = 1;
+    testMatrix.values[2][0] = 7;
+    testMatrix.values[2][1] = 4;
+    testMatrix.values[2][2] = 6;
+
+    position minPos = getMinValuePos(testMatrix);
+
+    assert(minPos.rowIndex == 1);
+    assert(minPos.colIndex == 2);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        free(testMatrix.values[i]);
+    }
+    free(testMatrix.values);
+}
+
+void testGetMaxValuePos() {
+    matrix testMatrix;
+    testMatrix.nRows = 3;
+    testMatrix.nCols = 3;
+
+    testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
+    }
+
+    testMatrix.values[0][0] = 5;
+    testMatrix.values[0][1] = 8;
+    testMatrix.values[0][2] = 3;
+    testMatrix.values[1][0] = 2;
+    testMatrix.values[1][1] = 9;
+    testMatrix.values[1][2] = 1;
+    testMatrix.values[2][0] = 7;
+    testMatrix.values[2][1] = 4;
+    testMatrix.values[2][2] = 6;
+
+    position maxPos = getMaxValuePos(testMatrix);
+    assert(maxPos.rowIndex == 1);
+    assert(maxPos.colIndex == 1);
+
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        free(testMatrix.values[i]);
+    }
+    free(testMatrix.values);
+}
+
 int main(){
 void testFreeMemMatrix();
 void testFreeMemMatrices();
@@ -476,6 +536,8 @@ void testIsSquareMatrix();
 void testAreTwoMatricesEqual();
 void testTransposeSquareMatrix();
 void testTransposeMatrix();
+void testGetMinValuePos();
+void testGetMaxValuePos();
 
 return 0;
 }
