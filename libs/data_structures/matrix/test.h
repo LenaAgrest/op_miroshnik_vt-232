@@ -11,3 +11,7 @@ void testOutputMatrices();
 void testSwapRows();
 
 void testSwapColumns();
+
+void testInsertionSortRowsMatrixByRowCriteria();
+
+void testSelectionSortColsMatrixByColCriteria();

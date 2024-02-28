@@ -57,8 +57,6 @@ void testFreeMemMatrices() {
         }
     }
     assert(testMatrices == NULL);
-
-    printf("Test passed successfully.\n");
 }
 
 void testInputMatrix() {
@@ -85,13 +83,11 @@ void testOutputMatrix() {
     testMatrix.nRows = 3;
     testMatrix.nCols = 2;
 
-    // Выделяем память для значений матрицы
     testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
     for (int i = 0; i < testMatrix.nRows; i++) {
         testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
     }
 
-    // Имитируем заполнение матрицы значениями
     int counter = 1;
     for (int i = 0; i < testMatrix.nRows; i++) {
         for (int j = 0; j < testMatrix.nCols; j++) {
@@ -102,20 +98,17 @@ void testOutputMatrix() {
     printf("Test with valid output:\n");
     outputMatrix(testMatrix);
 
-    // Очищаем память
     for (int i = 0; i < testMatrix.nRows; i++) {
         free(testMatrix.values[i]);
     }
     free(testMatrix.values);
 
-    // Вызываем функцию вывода с некорректными значениями (негативные размеры)
     printf("\nTest with invalid output (negative sizes):\n");
     matrix invalidMatrix;
     invalidMatrix.nRows = -1;
     invalidMatrix.nCols = -1;
     invalidMatrix.values = NULL;
 
-    // Должен произойти сбой с использованием assert
     outputMatrix(invalidMatrix);
 }
 
@@ -185,13 +178,11 @@ void testSwapColumns() {
     testMatrix.nRows = 3;
     testMatrix.nCols = 2;
 
-    // Выделяем память для значений матрицы
     testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
     for (int i = 0; i < testMatrix.nRows; i++) {
         testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
     }
 
-    // Имитируем заполнение матрицы значениями
     int counter = 1;
     for (int i = 0; i < testMatrix.nRows; i++) {
         for (int j = 0; j < testMatrix.nCols; j++) {
@@ -221,9 +212,70 @@ void testSwapColumns() {
     free(testMatrix.values);
 }
 
+void testInsertionSortRowsMatrixByRowCriteria() {
+    matrix testMatrix;
+    testMatrix.nRows = 3;
+    testMatrix.nCols = 2;
 
-void test(){
+    testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
+    }
 
+    int counter = 1;
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        for (int j = 0; j < testMatrix.nCols; j++) {
+            testMatrix.values[i][j] = counter++;
+        }
+    }
+
+    insertionSortRowsMatrixByRowCriteria(testMatrix, getSum);
+
+    assert(testMatrix.values[0][0] == 1);
+    assert(testMatrix.values[0][1] == 2);
+    assert(testMatrix.values[1][0] == 3);
+    assert(testMatrix.values[1][1] == 4);
+    assert(testMatrix.values[2][0] == 5);
+    assert(testMatrix.values[2][1] == 6);
+
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        free(testMatrix.values[i]);
+    }
+    free(testMatrix.values);
+}
+void testSelectionSortColsMatrixByColCriteria() {
+    matrix testMatrix;
+    testMatrix.nRows = 3;
+    testMatrix.nCols = 2;
+
+    testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
+    }
+
+    int counter = 1;
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        for (int j = 0; j < testMatrix.nCols; j++) {
+            testMatrix.values[i][j] = counter++;
+        }
+    }
+
+    selectionSortColsMatrixByColCriteria(testMatrix, getSum);
+
+    assert(testMatrix.values[0][0] == 1);
+    assert(testMatrix.values[1][0] == 3);
+    assert(testMatrix.values[2][0] == 5);
+    assert(testMatrix.values[0][1] == 2);
+    assert(testMatrix.values[1][1] == 4);
+    assert(testMatrix.values[2][1] == 6);
+
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        free(testMatrix.values[i]);
+    }
+    free(testMatrix.values);
+}
+
+int main(){
 void testFreeMemMatrix();
 void testFreeMemMatrices();
 void testInputMatrix();
@@ -231,10 +283,7 @@ void testOutputMatrix();
 void testOutputMatrices();
 void testSwapRows();
 void testSwapColumns();
-}
-
-int main(){
-test();
+void testInsertionSortRowsMatrixByRowCriteria();
 
 return 0;
 }
