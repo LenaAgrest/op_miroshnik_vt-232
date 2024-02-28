@@ -31,3 +31,7 @@ void testTransposeMatrix();
 void testGetMinValuePos();
 
 void testGetMaxValuePos();
+
+void test_countZeroRows();
+
+void testCreateArrayOfMatrixFromArray();

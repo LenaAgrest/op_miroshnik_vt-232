@@ -523,6 +523,48 @@ void testGetMaxValuePos() {
     free(testMatrix.values);
 }
 
+void testCreateMatrixFromArray() {
+    int array[] = {1, 2, 3, 4, 5, 6};
+
+    matrix testMatrix = createMatrixFromArray(array, 2, 3);
+
+    assert(testMatrix.nRows == 2);
+    assert(testMatrix.nCols == 3);
+    assert(testMatrix.values[0][0] == 1);
+    assert(testMatrix.values[0][1] == 2);
+    assert(testMatrix.values[0][2] == 3);
+    assert(testMatrix.values[1][0] == 4);
+    assert(testMatrix.values[1][1] == 5);
+    assert(testMatrix.values[1][2] == 6);
+
+    freeMemMatrix(&testMatrix);
+}
+
+void testCreateArrayOfMatrixFromArray() {
+    const int values[] = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12};
+    size_t nMatrices = 2;
+    size_t nRows = 3;
+    size_t nCols = 2;
+
+    matrix *resultMatrices = createArrayOfMatrixFromArray(values, nMatrices, nRows, nCols);
+
+    assert(resultMatrices[0].values[0][0] == 1);
+    assert(resultMatrices[0].values[0][1] == 2);
+    assert(resultMatrices[0].values[1][0] == 3);
+    assert(resultMatrices[0].values[1][1] == 4);
+    assert(resultMatrices[0].values[2][0] == 5);
+    assert(resultMatrices[0].values[2][1] == 6);
+
+    assert(resultMatrices[1].values[0][0] == 7);
+    assert(resultMatrices[1].values[0][1] == 8);
+    assert(resultMatrices[1].values[1][0] == 9);
+    assert(resultMatrices[1].values[1][1] == 10);
+    assert(resultMatrices[1].values[2][0] == 11);
+    assert(resultMatrices[1].values[2][1] == 12);
+
+    freeMemMatrices(resultMatrices, nMatrices);
+}
+
 int main(){
 void testFreeMemMatrix();
 void testFreeMemMatrices();
@@ -538,6 +580,7 @@ void testTransposeSquareMatrix();
 void testTransposeMatrix();
 void testGetMinValuePos();
 void testGetMaxValuePos();
+void test_countZeroRows(); 
 
 return 0;
 }

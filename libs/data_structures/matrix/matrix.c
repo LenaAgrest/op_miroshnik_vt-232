@@ -22,13 +22,7 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols)
 
 void freeMemMatrix(matrix *m)
 {
-    for (int i = 0; i < m->nRows; i++)
-    {
-        free(m->values[i]);
-    }
     free(m->values);
-    m->nRows = 0;
-    m->nCols = 0;
 }
 
 void freeMemMatrices(matrix *ms, int nMatrices)
@@ -160,25 +154,31 @@ void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int *, int))
     free(criteriaValues);
 }
 
-int compareCols(matrix m, int col1, int col2, int (*criteria)(int*, int)) {
+int compareCols(matrix m, int col1, int col2, int (*criteria)(int *, int))
+{
     return criteria(m.values[col1], m.nRows) - criteria(m.values[col2], m.nRows);
 }
 
-void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int)) {
+void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
+{
     assert(m.nRows > 0 && m.nCols > 0);
     assert(m.values != NULL);
 
-
-    for (int i = 0; i < m.nCols - 1; i++) {
+    for (int i = 0; i < m.nCols - 1; i++)
+    {
         int minIndex = i;
-        for (int j = i + 1; j < m.nCols; j++) {
-            if (compareCols(m, j, minIndex, criteria) < 0) {
+        for (int j = i + 1; j < m.nCols; j++)
+        {
+            if (compareCols(m, j, minIndex, criteria) < 0)
+            {
                 minIndex = j;
             }
         }
 
-        if (minIndex != i) {
-            for (int k = 0; k < m.nRows; k++) {
+        if (minIndex != i)
+        {
+            for (int k = 0; k < m.nRows; k++)
+            {
                 int temp = m.values[k][i];
                 m.values[k][i] = m.values[k][minIndex];
                 m.values[k][minIndex] = temp;
@@ -187,21 +187,27 @@ void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int*, int)) 
     }
 }
 
-bool isSquareMatrix(matrix *m) {
+bool isSquareMatrix(matrix *m)
+{
     assert(m != NULL);
     return m->nRows == m->nCols;
 }
 
-bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
+bool areTwoMatricesEqual(matrix *m1, matrix *m2)
+{
     assert(m1 != NULL && m2 != NULL);
 
-    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols) {
+    if (m1->nRows != m2->nRows || m1->nCols != m2->nCols)
+    {
         return false;
     }
 
-    for (int i = 0; i < m1->nRows; i++) {
-        for (int j = 0; j < m1->nCols; j++) {
-            if (m1->values[i][j] != m2->values[i][j]) {
+    for (int i = 0; i < m1->nRows; i++)
+    {
+        for (int j = 0; j < m1->nCols; j++)
+        {
+            if (m1->values[i][j] != m2->values[i][j])
+            {
                 return false;
             }
         }
@@ -210,15 +216,21 @@ bool areTwoMatricesEqual(matrix *m1, matrix *m2) {
     return true;
 }
 
-bool isEMatrix(matrix *m) {
+bool isEMatrix(matrix *m)
+{
     assert(m != NULL);
     assert(m->nRows == m->nCols);
 
-    for (int i = 0; i < m->nRows; i++) {
-        for (int j = 0; j < m->nCols; j++) {
-            if (i == j && m->values[i][j] != 1) {
+    for (int i = 0; i < m->nRows; i++)
+    {
+        for (int j = 0; j < m->nCols; j++)
+        {
+            if (i == j && m->values[i][j] != 1)
+            {
                 return false;
-            } else if (i != j && m->values[i][j] != 0) {
+            }
+            else if (i != j && m->values[i][j] != 0)
+            {
                 return false;
             }
         }
@@ -226,13 +238,17 @@ bool isEMatrix(matrix *m) {
     return true;
 }
 
-bool isSymmetricMatrix(matrix *m) {
+bool isSymmetricMatrix(matrix *m)
+{
     assert(m != NULL);
     assert(m->nRows == m->nCols);
 
-    for (int i = 0; i < m->nRows; i++) {
-        for (int j = 0; j < m->nCols; j++) {
-            if (m->values[i][j] != m->values[j][i]) {
+    for (int i = 0; i < m->nRows; i++)
+    {
+        for (int j = 0; j < m->nCols; j++)
+        {
+            if (m->values[i][j] != m->values[j][i])
+            {
                 return false;
             }
         }
@@ -240,12 +256,15 @@ bool isSymmetricMatrix(matrix *m) {
     return true;
 }
 
-void transposeSquareMatrix(matrix *m) {
+void transposeSquareMatrix(matrix *m)
+{
     assert(m != NULL);
     assert(m->nRows == m->nCols);
 
-    for (int i = 0; i < m->nRows; i++) {
-        for (int j = i + 1; j < m->nCols; j++) {
+    for (int i = 0; i < m->nRows; i++)
+    {
+        for (int j = i + 1; j < m->nCols; j++)
+        {
             int temp = m->values[i][j];
             m->values[i][j] = m->values[j][i];
             m->values[j][i] = temp;
@@ -253,42 +272,51 @@ void transposeSquareMatrix(matrix *m) {
     }
 }
 
-void transposeMatrix(matrix *m) {
+void transposeMatrix(matrix *m)
+{
     assert(m != NULL);
 
     int **transposedValues = (int **)malloc(sizeof(int *) * m->nCols);
-    for (int i = 0; i < m->nCols; i++) {
+    for (int i = 0; i < m->nCols; i++)
+    {
         transposedValues[i] = (int *)malloc(sizeof(int) * m->nRows);
     }
 
-    for (int i = 0; i < m->nRows; i++) {
-        for (int j = 0; j < m->nCols; j++) {
+    for (int i = 0; i < m->nRows; i++)
+    {
+        for (int j = 0; j < m->nCols; j++)
+        {
             transposedValues[j][i] = m->values[i][j];
         }
     }
 
-    for (int i = 0; i < m->nRows; i++) {
+    for (int i = 0; i < m->nRows; i++)
+    {
         free(m->values[i]);
     }
     free(m->values);
 
     m->values = transposedValues;
-    
+
     int temp = m->nRows;
     m->nRows = m->nCols;
     m->nCols = temp;
 }
 
-position getMinValuePos(matrix m) {
+position getMinValuePos(matrix m)
+{
     assert(m.values != NULL);
     assert(m.nRows > 0 && m.nCols > 0);
 
     position minPos;
     minPos.rowIndex = 0;
     minPos.colIndex = 0;
-    for (int i = 0; i < m.nRows; i++) {
-        for (int j = 0; j < m.nCols; j++) {
-            if (m.values[i][j] < m.values[minPos.rowIndex][minPos.colIndex]) {
+    for (int i = 0; i < m.nRows; i++)
+    {
+        for (int j = 0; j < m.nCols; j++)
+        {
+            if (m.values[i][j] < m.values[minPos.rowIndex][minPos.colIndex])
+            {
                 minPos.rowIndex = i;
                 minPos.colIndex = j;
             }
@@ -298,7 +326,8 @@ position getMinValuePos(matrix m) {
     return minPos;
 }
 
-position getMaxValuePos(matrix m) {
+position getMaxValuePos(matrix m)
+{
     assert(m.values != NULL);
 
     assert(m.nRows > 0 && m.nCols > 0);
@@ -307,13 +336,41 @@ position getMaxValuePos(matrix m) {
     maxPos.rowIndex = 0;
     maxPos.colIndex = 0;
 
-    for (int i = 0; i < m.nRows; i++) {
-        for (int j = 0; j < m.nCols; j++) {
-            if (m.values[i][j] > m.values[maxPos.rowIndex][maxPos.colIndex]) {
+    for (int i = 0; i < m.nRows; i++)
+    {
+        for (int j = 0; j < m.nCols; j++)
+        {
+            if (m.values[i][j] > m.values[maxPos.rowIndex][maxPos.colIndex])
+            {
                 maxPos.rowIndex = i;
                 maxPos.colIndex = j;
             }
         }
     }
     return maxPos;
+}
+
+matrix createMatrixFromArray(const int *a, int nRows, int nCols)
+{
+    matrix m = getMemMatrix(nRows, nCols);
+    int k = 0;
+    for (int i = 0; i < nRows; i++)
+    {
+        for (int j = 0; j < nCols; j++)
+        {
+            m.values[i][j] = a[k++];
+        }
+    }
+    return m;
+}
+
+matrix *createArrayOfMatrixFromArray(const int *values, size_t nMatrices, size_t nRows, size_t nCols)
+{
+    matrix *ms = getMemArrayOfMatrices(nMatrices, nRows, nCols);
+    int l = 0;
+    for (size_t k = 0; k < nMatrices; k++)
+        for (size_t i = 0; i < nRows; i++)
+            for (size_t j = 0; j < nCols; j++)
+                ms[k].values[i][j] = values[l++];
+    return ms;
 }
