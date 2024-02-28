@@ -23,3 +23,7 @@ void testAreTwoMatricesEqual();
 void testIsEMatrix();
 
 void testIsSymmetricMatrix();
+
+void testTransposeSquareMatrix();
+
+void testTransposeMatrix();

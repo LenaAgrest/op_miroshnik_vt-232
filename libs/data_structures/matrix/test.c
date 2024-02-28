@@ -401,6 +401,68 @@ void testIsSymmetricMatrix() {
     free(symmetricMatrix.values);
 }
 
+void testTransposeSquareMatrix() {
+    matrix squareMatrix;
+    squareMatrix.nRows = 3;
+    squareMatrix.nCols = 3;
+
+    squareMatrix.values = (int **)malloc(sizeof(int *) * squareMatrix.nRows);
+    for (int i = 0; i < squareMatrix.nRows; i++) {
+        squareMatrix.values[i] = (int *)malloc(sizeof(int) * squareMatrix.nCols);
+    }
+
+    for (int i = 0; i < squareMatrix.nRows; i++) {
+        for (int j = 0; j < squareMatrix.nCols; j++) {
+            squareMatrix.values[i][j] = i * squareMatrix.nCols + j + 1;
+        }
+    }
+    transposeSquareMatrix(&squareMatrix);
+
+    assert(squareMatrix.values[0][0] == 1);
+    assert(squareMatrix.values[1][0] == 2);
+    assert(squareMatrix.values[2][0] == 3);
+    assert(squareMatrix.values[0][1] == 4);
+    assert(squareMatrix.values[1][1] == 5);
+    assert(squareMatrix.values[2][1] == 6);
+    assert(squareMatrix.values[0][2] == 7);
+    assert(squareMatrix.values[1][2] == 8);
+    assert(squareMatrix.values[2][2] == 9);
+
+    for (int i = 0; i < squareMatrix.nRows; i++) {
+        free(squareMatrix.values[i]);
+    }
+    free(squareMatrix.values);
+}
+
+void testTransposeMatrix() {
+    matrix testMatrix;
+    testMatrix.nRows = 2;
+    testMatrix.nCols = 3;
+
+    testMatrix.values = (int **)malloc(sizeof(int *) * testMatrix.nRows);
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        testMatrix.values[i] = (int *)malloc(sizeof(int) * testMatrix.nCols);
+    }
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        for (int j = 0; j < testMatrix.nCols; j++) {
+            testMatrix.values[i][j] = i * testMatrix.nCols + j + 1;
+        }
+    }
+    transposeMatrix(&testMatrix);
+
+    assert(testMatrix.values[0][0] == 1);
+    assert(testMatrix.values[0][1] == 4);
+    assert(testMatrix.values[1][0] == 2);
+    assert(testMatrix.values[1][1] == 5);
+    assert(testMatrix.values[2][0] == 3);
+    assert(testMatrix.values[2][1] == 6);
+
+    for (int i = 0; i < testMatrix.nRows; i++) {
+        free(testMatrix.values[i]);
+    }
+    free(testMatrix.values);
+}
+
 int main(){
 void testFreeMemMatrix();
 void testFreeMemMatrices();
@@ -412,6 +474,8 @@ void testSwapColumns();
 void testInsertionSortRowsMatrixByRowCriteria();
 void testIsSquareMatrix();
 void testAreTwoMatricesEqual();
+void testTransposeSquareMatrix();
+void testTransposeMatrix();
 
 return 0;
 }
