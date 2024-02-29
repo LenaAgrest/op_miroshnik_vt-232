@@ -20,16 +20,29 @@ matrix *getMemArrayOfMatrices(int nMatrices, int nRows, int nCols)
     return ms;
 }
 
-void freeMemMatrix(matrix *m)
-{
+void freeMemMatrix(matrix *m) {
+    assert(m != NULL);
+    assert(m->values != NULL);
+    for (int i = 0; i < m->nRows; i++) {
+        free(m->values[i]);
+    }
     free(m->values);
+    m->nRows = 0;
+    m->nCols = 0;
 }
 
-void freeMemMatrices(matrix *ms, int nMatrices)
-{
-    for (int i = 0; i < nMatrices; i++)
-    {
-        freeMemMatrix(&ms[i]);
+void freeMemMatrices(matrix *ms, int nMatrices) {
+    assert(ms != NULL);
+    for (int i = 0; i < nMatrices; i++) {
+        assert(ms[i].values != NULL);
+
+        for (int j = 0; j < ms[i].nRows; j++) {
+            free(ms[i].values[j]);
+        }
+
+        free(ms[i].values);
+        ms[i].nRows = 0;
+        ms[i].nCols = 0;
     }
     free(ms);
 }
