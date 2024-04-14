@@ -73,12 +73,91 @@ int getMin(int *a, int n) {
 }
 
 void sortColsByMinElement(matrix *m) {
-    insertionSortRowsMatrixByRowCriteria(*m, getMin);
+    selectionSortColsMatrixByColCriteria(*m, getMin);
+}
+
+void task3(matrix *m) {
+    sortColsByMinElement(m);
+}
+
+void test_task3() {
+    matrix m = createMatrixFromArray((int[]) {3, 5, 2, 4, 3, 3,
+                                              2, 5, 1, 8, 2, 7,
+                                              6, 1, 4, 4, 8, 3},
+                                     3, 6);
+    matrix exp_res = createMatrixFromArray((int[]) {5, 2, 3, 3, 3, 4,
+                                                    5, 1, 2, 2, 7, 8,
+                                                    1, 4, 6, 8, 3, 4},
+                                           3, 6);
+
+    task3(&m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
+}
+
+matrix mulMatrices(matrix m1, matrix m2) {
+    assert(m1.nRows * m1.nCols == m2.nRows * m2.nCols);
+
+    matrix temp = getMemMatrix(m1.nRows, m2.nCols);
+
+    for (int i = 0; i < m1.nRows; i++) {
+        for (int j = 0; j < m2.nCols; j++) {
+            temp.values[i][j] = 0;
+
+            for (int k = 0; k < m2.nRows; k++)
+                temp.values[i][j] += m1.values[i][k] * m2.values[k][j];
+        }
+    }
+
+    return temp;
+}
+
+void getSquareOfMatrixIfSymmetric(matrix *m) {
+    assert(isSymmetricMatrix(m));
+
+    matrix temp = mulMatrices(*m, *m);
+    freeMemMatrix(m);
+    *m = temp;
+}
+
+void task4(matrix *m) {
+    getSquareOfMatrixIfSymmetric(m);
+}
+
+void test_task4() {
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              2, 4, 5,
+                                              3, 5, 6},
+                                     3, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {14, 25, 31,
+                                                    25, 45, 56,
+                                                    31, 56, 70},
+                                           3, 3);
+
+    task4(&m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
+}
+
+bool isUnique(long long *a, int n) {
+    for (int i = 0; i < n; ++i) {
+        for (int j = n - 1; j > 0; j--) {
+            if (a[i] == a[j] && i != j)
+                return false;
+        }
+    }
+    return true;
 }
 
 void test() {
     test_task1();
     test_task2();
+    test_task3();
+    test_task4();
 }
 
 int main() {
