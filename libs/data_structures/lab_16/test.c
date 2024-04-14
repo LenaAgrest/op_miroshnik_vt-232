@@ -1,6 +1,7 @@
 #include "matrix.h" 
 #include "assert.h"
 #include <stdlib.h>
+#include <stddef.h>
 #include <stdio.h>
 #include <math.h>
 
@@ -236,7 +237,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         max_num = m.values[i_row][i_col];
         printf("\n");
         while (i_col < m.nRows && i_row < m.nRows) {
-            max_num = max(max_num, m.values[i_row][i_col]);
+            max_num = maxim(max_num, m.values[i_row][i_col]);
             i_row++;
             i_col++;
         }
@@ -503,6 +504,252 @@ bool hasAllNonDescendingRows(matrix m) {
     return true;
 }
 
+int countNonDescendingRowsMatrices(matrix *ms, int nMatrix) {
+    int count = 0;
+    for (int i = 0; i < nMatrix; ++i)
+        if (hasAllNonDescendingRows(ms[i]))
+            count++;
+
+    return count;
+}
+
+int task13(matrix *ms, int nMatrix) {
+    return countNonDescendingRowsMatrices(ms, nMatrix);
+}
+
+void test_task13() {
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {7, 1, 1, 1,
+                                                       1, 6, 2, 2,
+                                                       5, 4, 2, 3,
+                                                       1, 3, 7, 9},
+                                              4, 2, 2);
+
+    assert(task13(ms, 4) == 2);
+    freeMemMatrices(ms, 4);
+}
+
+int countValues(const int *a, int n, int value) {
+    int count = 0;
+    for (int i = 0; i < n; ++i)
+        if (a[i] == value)
+            count++;
+
+    return count;
+}
+
+int countZeroRows(matrix m) {
+    int zero_rows = 0;
+    for (int i = 0; i < m.nRows; ++i)
+        if (countValues(m.values[i], m.nCols, 0) == m.nCols)
+            zero_rows++;
+
+    return zero_rows;
+}
+
+void printMatrixWithMaxZeroRows(matrix *ms, int nMatrix) {
+    int temp_pepe[nMatrix];
+    int max = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        int count = countZeroRows(ms[i]);
+        temp_pepe[i] = count;
+        max = max > count ? max : count;
+    }
+
+    for (int i = 0; i < nMatrix; ++i)
+        if (temp_pepe[i] == max)
+            outputMatrix(ms[i]);
+}
+
+void task14(matrix *ms, int nMatrix, int *a) {
+    for (int i = 0; i < nMatrix; ++i)
+        a[i] = countZeroRows(ms[i]);
+}
+
+void test_task14() {
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {0, 1, 1, 0, 0, 0,
+                                                       1, 1, 2, 1, 1, 1,
+                                                       0, 0, 0, 0, 4, 7,
+                                                       0, 0, 0, 1, 0, 0,
+                                                       0, 1, 0, 2, 0, 3},
+                                              5, 3, 2);
+    int res[5];
+    task14(ms, 5, res);
+    assert(res[0] == 1 && res[1] == 0 &&
+           res[2] == 2 && res[3] == 2 && res[4] == 0);
+
+    printMatrixWithMaxZeroRows(ms, 5);
+}
+
+void task15(matrix *ms, int nMatrix) {
+    int temp_pepe[nMatrix];
+    int abs, max = 0;
+    for (int i = 0; i < nMatrix; ++i) {
+        for (int j = 0; j < ms->nRows; ++j)
+            for (int k = 0; k < ms->nCols; ++k) {
+                abs = ms[i].values[j][k] > 0 ? ms[i].values[j][k] :
+                      -1 * ms[i].values[j][k];
+                max = max > abs ? max : abs;
+            }
+
+        temp_pepe[i] = max;
+        max = 0;
+    }
+
+    int min = temp_pepe[0];
+    for (int i = 1; i < nMatrix; ++i)
+        min = min < temp_pepe[i] ? min : temp_pepe[i];
+
+    for (int i = 0; i < nMatrix; ++i)
+        if (temp_pepe[i] == min)
+            outputMatrix(ms[i]);
+}
+
+void test_task15() {
+    matrix *ms = createArrayOfMatrixFromArray((int[]) {90, -1, 1, 11,
+                                                       11, 66, -92, 22,
+                                                       5, 40, -22, 32,
+                                                       1, 3, 7, 90},
+                                              4, 2, 2);
+
+    task15(ms, 4);
+    assert(69 == 69);
+}
+
+int min2(int a, int b) {
+    return a > b ? b : a;
+}
+
+int getNSpecialElement2(matrix m) {
+    int count = 0;
+    bool isSequence = true;
+    int left_idx, right_idx;
+    for (int i = 0; i < m.nRows; ++i) {
+        for (int j = 0; j < m.nCols; ++j) {
+            left_idx = j != 0 ? j - 1 : 0;
+            right_idx = j != m.nCols - 1 ? j + 1 : m.nCols - 1;
+
+            while (left_idx != 0 || right_idx != m.nCols - 1) {
+
+                if (j != left_idx &&
+                    min2(m.values[i][left_idx], m.values[i][j]) ==
+                    m.values[i][left_idx]) {
+                    isSequence = false;
+                    break;
+                }
+
+                if (j != right_idx &&
+                    min2(m.values[i][left_idx], m.values[i][j]) ==
+                    m.values[i][j]) {
+                    isSequence = false;
+                    break;
+                }
+
+                left_idx = j != 0 ? j - 1 : 0;
+                right_idx = j != m.nCols - 1 ? j + 1 : m.nCols - 1;
+            }
+            if (isSequence)
+                count++;
+        }
+    }
+
+    return count;
+}
+
+int task16(matrix m) {
+    return getNSpecialElement(m);
+}
+
+void test_task16() {
+    matrix m = createMatrixFromArray((int[]) {2, 3, 5, 5, 4,
+                                              6, 2, 3, 8, 12,
+                                              12, 12, 2, 1, 2},
+                                     3, 5);
+
+    assert(task16(m) == 4);
+    freeMemMatrix(&m);
+}
+
+long long getScalarProduct(int *a, int *b, int n) {
+    long long res = 0;
+    for (int i = 0; i < n; ++i)
+        res += a[i] * b[i];
+
+    return res;
+}
+
+double getVectorLength(int *a, int n) {
+    double res = 0;
+    for (int i = 0; i < n; ++i)
+        res += sqrt(a[i] * a[i]);
+
+    return res;
+}
+
+double getCosine(int *a, int *b, int n) {
+    long long sclr_prod = getScalarProduct(a, b, n);
+    double len_a_b = getVectorLength(a, n) * getVectorLength(b, n);
+
+    assert(len_a_b != 0);
+
+    return (double) sclr_prod / len_a_b;
+}
+
+int getVectorIndexWithMaxAngle(matrix m, int *b) {
+    double temp_pepe[m.nRows];
+    for (int i = 0; i < m.nRows; ++i)
+        temp_pepe[i] = getCosine(m.values[i], b, m.nCols);
+
+    int res = 0;
+    for (int i = 1; i < m.nRows; ++i)
+        res = temp_pepe[res] > temp_pepe[i] ? res : i;
+
+    return res;
+}
+
+int task17(matrix m, int *b) {
+    return getVectorIndexWithMaxAngle(m, b);
+}
+
+void test_task17() {
+    matrix m = createMatrixFromArray((int[]) {3, 654,
+                                              4, 4,
+                                              3, 1},
+                                     3, 2);
+    int vector_b[2] = {3, 4};
+
+    assert(task17(m, vector_b) == 0);
+    freeMemMatrix(&m);
+}
+
+long long getScalarProductRowAndCol(matrix m, int i, int j) {
+    int column_arr[m.nRows];
+    for (int k = 0; k < m.nRows; ++k)
+        column_arr[k] = m.values[k][j];
+
+    return getScalarProduct(m.values[i], column_arr, m.nRows);
+}
+
+long long getSpecialScalarProduct(matrix m) {
+    int min_col_idx = getMinValuePos(m).colIndex;
+    int max_row_idx = getMaxValuePos(m).rowIndex;
+
+    return getScalarProductRowAndCol(m, max_row_idx, min_col_idx);
+}
+
+
+long long task18(matrix m) {
+    return getSpecialScalarProduct(m);
+}
+
+void test_task18() {
+    matrix m = createMatrixFromArray((int[]) {3, 6, 5,
+                                              4, 4, 5,
+                                              3, 1, 5},
+                                     3, 3);
+
+    assert(task18(m) == 47);
+    freeMemMatrix(&m);
+}
 void test() {
     test_task1();
     test_task2();
@@ -516,6 +763,12 @@ void test() {
     test_task10();
     test_task11();
     test_task12();
+    test_task13();
+    test_task14();
+    test_task15();
+    test_task16();
+    test_task17();
+    test_task18();
 }
 
 int main() {

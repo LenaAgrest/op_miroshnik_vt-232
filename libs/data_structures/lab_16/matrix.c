@@ -1,6 +1,7 @@
 #include "matrix.h"
 #include <stdio.h>
 #include <malloc.h>
+#include <stddef.h>
 #include <assert.h>
 #include <stdbool.h>
 
