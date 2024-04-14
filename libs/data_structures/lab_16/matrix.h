@@ -36,6 +36,8 @@ void selectionSortColsMatrixByColCriteria(matrix m, int (*criteria)(int *, int))
 
 bool isSquareMatrix(matrix *m);
 
+int getSum(int *a, int n);
+
 bool areTwoMatricesEqual(matrix *m1, matrix *m2);
 
 bool isEMatrix(matrix *m);
