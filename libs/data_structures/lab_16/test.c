@@ -210,7 +210,7 @@ void test_task6() {
     freeMemMatrix(&exp_res);
 }
 
-int max(int a, int b) {
+int maxim(int a, int b) {
     return a > b ? a : b;
 }
 
@@ -223,7 +223,7 @@ long long findSumOfMaxesOfPseudoDiagonal(matrix m) {
         int i_col = i;
         max_num = m.values[i_row][i_col];
         while (i_col < m.nCols && i_row < m.nRows) {
-            max_num = max(max_num, m.values[i_row][i_col]);
+            max_num = maxim(max_num, m.values[i_row][i_col]);
             i_row++;
             i_col++;
         }
@@ -341,6 +341,168 @@ void insertionSortRowsMatrixByRowCriteriaF(matrix *m, float (*criteria)(int *, i
     }
 }
 
+void sortByDistances(matrix *m) {
+    insertionSortRowsMatrixByRowCriteriaF(m, getDistance);
+}
+
+void task9(matrix *m) {
+    sortByDistances(m);
+}
+
+void test_task9() {
+    int n = 4;
+    int m = 4;
+    matrix mat = createMatrixFromArray((int[]) {67, 4, 2, 6,
+                                                1, 9, 9, 6,
+                                                9, 9, 9, 9,
+                                                84, 1, -39, 1
+    }, m, n);
+    matrix exp_res = createMatrixFromArray((int[]) {1, 9, 9, 6,
+                                                    9, 9, 9, 9,
+                                                    67, 4, 2, 6,
+                                                    84, 1, -39, 1
+    }, m, n);
+
+    task9(&mat);
+
+    assert(areTwoMatricesEqual(&mat, &exp_res));
+    freeMemMatrix(&mat);
+    freeMemMatrix(&exp_res);
+}
+
+int cmp_long_long(const void *pa, const void *pb) {
+    if (*(long long int *) pa - *(long long int *) pb < 0)
+        return -1;
+
+    if (*(long long int *) pa - *(long long int *) pb > 0)
+        return 1;
+
+    return 0;
+}
+
+int countNUnique(long long *a, int n) {
+    int count = 0;
+    bool is_uniq = false;
+    for (int i = 0; i < n - 1; ++i) {
+        if (!is_uniq && a[i] == a[i + 1]) {
+            count += 1;
+            is_uniq = true;
+        } else
+            is_uniq = false;
+    }
+
+    return count;
+}
+
+int countEqClassesByRowsSum(matrix m) {
+    long long temp[m.nRows];
+    for (int i = 0; i < m.nRows; ++i) {
+        temp[i] = 0;
+        for (int j = 0; j < m.nCols; ++j)
+            temp[i] += m.values[i][j];
+    }
+
+    qsort(temp, m.nRows, sizeof(long long int), cmp_long_long);
+
+    return countNUnique(temp, m.nRows);
+}
+
+int task10(matrix m) {
+    return countEqClassesByRowsSum(m);
+}
+
+void test_task10() {
+    matrix m = createMatrixFromArray((int[]) {7, 1,
+                                              2, 7,
+                                              5, 4,
+                                              4, 3,
+                                              1, 6,
+                                              8, 0
+    }, 6, 2);
+
+    assert(task10(m) == 3);
+    freeMemMatrix(&m);
+}
+
+int getNSpecialElement(matrix m) {
+    int max, sum;
+    int count = 0;
+    for (int i = 0; i < m.nCols; ++i) {
+        max = m.values[0][i];
+        sum = max;
+        for (int j = 1; j < m.nRows; ++j) {
+            max = max > m.values[j][i] ?
+                  max : m.values[j][i];
+            sum += m.values[j][i];
+        }
+
+        sum -= max;
+        count = sum < max ? count + 1 : count;
+    }
+
+    return count;
+}
+
+int task11(matrix m) {
+    return getNSpecialElement(m);
+}
+
+void test_task11() {
+    matrix m = createMatrixFromArray((int[]) {3, 5, 5, 4,
+                                              2, 3, 6, 7,
+                                              12, 2, 1, 2},
+                                     3, 4);
+
+    assert(task11(m) == 2);
+    freeMemMatrix(&m);
+}
+
+position getLeftMin(matrix m) {
+    return getMinValuePos(m);
+}
+
+void swapPenultimateRow(matrix *m, int n) {
+    for (int i = m->nRows - 1; i >= 0; i--)
+        m->values[m->nRows - 2][i] = m->values[i][n];
+}
+
+void task12(matrix m) {
+    swapPenultimateRow(&m, getLeftMin(m).colIndex);
+}
+
+void test_task12() {
+    matrix m = createMatrixFromArray((int[]) {1, 2, 3,
+                                              4, 5, 6,
+                                              7, 8, 1},
+                                     3, 3);
+    matrix exp_res = createMatrixFromArray((int[]) {1, 2, 3,
+                                                    1, 4, 7,
+                                                    7, 8, 1},
+                                           3, 3);
+
+    task12(m);
+
+    assert(areTwoMatricesEqual(&m, &exp_res));
+    freeMemMatrix(&m);
+    freeMemMatrix(&exp_res);
+}
+
+bool isNonDescendingSorted(int *a, int n) {
+    for (int i = 0; i < n - 1; ++i)
+        if (a[i] > a[i + 1])
+            return false;
+
+    return true;
+}
+
+bool hasAllNonDescendingRows(matrix m) {
+    for (int i = 0; i < m.nRows; ++i)
+        if (!isNonDescendingSorted(m.values[i], m.nCols))
+            return false;
+
+    return true;
+}
+
 void test() {
     test_task1();
     test_task2();
@@ -350,6 +512,10 @@ void test() {
     test_task6();
     test_task7();
     test_task8();
+    test_task9();
+    test_task10();
+    test_task11();
+    test_task12();
 }
 
 int main() {
