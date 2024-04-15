@@ -128,6 +128,22 @@ void test_strcmp_(){
 
     assert(strcmp_(string1, string2) < 0);
 }
+int isLetter(int c) {
+    return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
+}
+
+void test_copyIf() {
+    char source[] = "Hello, world!";
+    char destination[20];
+
+    char *endDestination = copyIf(source, source + sizeof(source), destination, isLetter);
+    
+    assert(endDestination == destination + 10);
+    
+    for (int i = 0; i < 10; ++i) {
+        assert(destination[i] == "Helloworld"[i]);
+    }
+}
 
 
 void test() {
@@ -138,5 +154,5 @@ test_find_space();
 test_find_non_space_reverse();
 test_find_space_reverse();
 test_strcmp_();
-
+test_copyIf();
 }
