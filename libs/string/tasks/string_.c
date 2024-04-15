@@ -23,3 +23,22 @@ char* findNonSpace(char *begin) {
     }
     return begin;
 }
+
+void test_find() {
+    char string[] = "lab_17";
+
+    assert(find(string, string + 5, 'a') == string + 1);
+}
+
+void test_find_non_space() {
+    char string[] = "lab_17";
+
+    assert(findNonSpace(string) == string);
+}
+
+void test() {
+
+test_find();
+test_find_non_space();
+
+}

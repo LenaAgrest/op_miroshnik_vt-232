@@ -5,8 +5,6 @@
 #include <assert.h>
 #include <memory.h>
 
-void test(){
-}
-
 int main() {
+test();
 }
