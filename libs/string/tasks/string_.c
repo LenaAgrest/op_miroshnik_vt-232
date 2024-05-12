@@ -4,56 +4,69 @@
 #include <assert.h>
 #include <memory.h>
 
-size_t strlen_(const char *begin) {
-    char *end = begin;
+size_t strlen_(const char *begi)
+{
+    char *end = begi;
     while (*end != '\0')
         end++;
-    return end - begin;
+    return end - begi;
 }
 
-char* find(char *begin, char *end, int ch) {
-while (begin != end && *begin != ch)
-begin++;
-return begin;
+char *find(char *begin, char *end, int ch)
+{
+    while (begin != end && *begin != ch)
+        begin++;
+    return begin;
 }
 
-char* findNonSpace(char *begin) {
-    while (isspace(*begin) && *begin != '\0') {
+char *findNonSpace(char *begin)
+{
+    while (isspace(*begin) && *begin != '\0')
+    {
         begin++;
     }
     return begin;
 }
 
-char* findSpace(char *begin) {
-    while (!isspace(*begin) && *begin != '\0') {
+char *findSpace(char *begin)
+{
+    while (!isspace(*begin) && *begin != '\0')
+    {
         begin++;
     }
     return begin;
 }
 
-char *findNonSpaceReverse(char *rbegin, const char *rend) {
-    while (rbegin >= rend && isspace(*rbegin)) {
+char *findNonSpaceReverse(char *rbegin, const char *rend)
+{
+    while (rbegin >= rend && isspace(*rbegin))
+    {
         rbegin--;
     }
     return rbegin;
 }
 
-char *findSpaceReverse(char *rbegin, const char *rend) {
-    while (rbegin >= rend && !isspace(*rbegin)) {
+char *findSpaceReverse(char *rbegin, const char *rend)
+{
+    while (rbegin >= rend && !isspace(*rbegin))
+    {
         rbegin--;
     }
     return rbegin;
 }
 
-int strcmp_(const char *lhs, const char *rhs) {
-    while (*lhs == *rhs && *lhs != '\0' && *rhs != '\0') {
+int strcmp_(const char *lhs, const char *rhs)
+{
+    while (*lhs == *rhs && *lhs != '\0' && *rhs != '\0')
+    {
         lhs++;
         rhs++;
     }
     return *lhs - *rhs;
 }
 
-char* copy(const char *beginSource, const char *endSource, char *beginDestination) {
+char *copy(const char *beginSource, const char *endSource, char *beginDestination)
+{
     size_t size = endSource - beginSource;
     memcpy(beginDestination, beginSource, size);
     *(beginDestination + size) = '\0';
@@ -61,9 +74,12 @@ char* copy(const char *beginSource, const char *endSource, char *beginDestinatio
     return beginDestination + size;
 }
 
-char* copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int)) {
-    while (beginSource != endSource) {
-        if (f( *beginSource)) {
+char *copyIf(char *beginSource, const char *endSource, char *beginDestination, int (*f)(int))
+{
+    while (beginSource != endSource)
+    {
+        if (f(*beginSource))
+        {
             *beginDestination = *beginSource;
             beginDestination++;
         }
@@ -74,10 +90,13 @@ char* copyIf(char *beginSource, const char *endSource, char *beginDestination, i
     return beginDestination;
 }
 
-char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int)) {
+char *copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDestination, int (*f)(int))
+{
     char *beginDestination_ = beginDestination;
-    while (rbeginSource >= rendSource) {
-        if (f(*rbeginSource)) {
+    while (rbeginSource >= rendSource)
+    {
+        if (f(*rbeginSource))
+        {
             *beginDestination_ = *rbeginSource;
             beginDestination_++;
         }
@@ -88,71 +107,129 @@ char* copyIfReverse(char *rbeginSource, const char *rendSource, char *beginDesti
     return beginDestination_;
 }
 
-int is_h(char s) {
+int is_h(char s)
+{
     return s == 'h' || s == 'w';
 }
 
-void test_find() {
+char *getEndOfString(char *s)
+{
+    char *end = s;
+    while (*end != '\0')
+    {
+        end++;
+    }
+    return end;
+}
+
+void removeNonLetters(char *s)
+{
+    char *endSource = getEndOfString(s);
+    char *destination = copyIf(s, endSource, s, isgraph);
+    *destination = '\0';
+}
+
+void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line)
+{
+    if (strcmp(expected, got))
+    {
+        fprintf(stderr, "File %s\n", fileName);
+        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
+        fprintf(stderr, "Expected: \"%s\"\n", expected);
+        fprintf(stderr, "Got: \"%s\"\n\n", got);
+    }
+    else
+    {
+        fprintf(stderr, "%s - OK\n", funcName);
+    }
+}
+
+
+
+
+
+
+
+
+
+
+void test_find()
+{
     char string[] = "lab_17";
 
     assert(find(string, string + 5, 'a') == string + 1);
 }
 
-void test_find_non_space() {
+void test_find_non_space()
+{
     char string[] = "lab_17";
 
     assert(findNonSpace(string) == string);
 }
 
-void test_find_space() {
+void test_find_space()
+{
     char string[] = " ab_17";
 
     assert(findSpace(string) == string);
 }
 
-void test_find_non_space_reverse() {
+void test_find_non_space_reverse()
+{
     char string[] = "lab_17";
 
     assert(findNonSpaceReverse(string + 4, string) == string + 4);
 }
 
-void test_find_space_reverse() {
+void test_find_space_reverse()
+{
     char string[] = "lab_17";
 
     assert(findSpaceReverse(string + 3, string) == string - 1);
 }
 
-void test_strcmp_(){
+void test_strcmp_()
+{
     char string1[] = "lab_17";
     char string2[] = "laba_17";
 
     assert(strcmp_(string1, string2) < 0);
 }
-int isLetter(int c) {
+int isLetter(int c)
+{
     return (c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z');
 }
 
-void test_copyIf() {
+void test_copyIf()
+{
     char source[] = "Hello, world!";
     char destination[20];
 
     char *endDestination = copyIf(source, source + sizeof(source), destination, isLetter);
-    
+
     assert(endDestination == destination + 10);
-    
-    for (int i = 0; i < 10; ++i) {
+
+    for (int i = 0; i < 10; ++i)
+    {
         assert(destination[i] == "Helloworld"[i]);
     }
 }
 
+void test_assertString()
+{
+    char s[] = "Te st";
+    removeNonLetters(s);
+    ASSERT_STRING("Test", s);
+}
 
-void test() {
+void test()
+{
 
-test_find();
-test_find_non_space();
-test_find_space();
-test_find_non_space_reverse();
-test_find_space_reverse();
-test_strcmp_();
-test_copyIf();
+    test_find();
+    test_find_non_space();
+    test_find_space();
+    test_find_non_space_reverse();
+    test_find_space_reverse();
+    test_strcmp_();
+    test_copyIf();
 }
