@@ -30,7 +30,17 @@ char* getEndOfString(char *s);
 
 void removeNonLetters(char *s);
 
-void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line);
+void removeExtraSpaces(char *s);
+
+int getWord(char *beginSearch, WordDescriptor *word);
+
+void reversedDigitToStart(WordDescriptor word);
+
+void digitToStart(WordDescriptor word);
+
+void digitsToStart(char *s);
+
+int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 
 
 #endif

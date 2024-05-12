@@ -12,12 +12,19 @@ void test_removeNonLetters(){
 }
 
 void test_removeExtraSpaces(){
-    char s[] = "    Everyone     is     friends     with     each     other    ";
+    char s[] = "    It`s     test     task     two     eighteen     lab    ";
     removeExtraSpaces(s);
-    ASSERT_STRING("Everyone is friends with each other", s);
+    ASSERT_STRING("It`s test task two eighteen lab", s);
+}
+
+void test_digitsToStart(){
+    char s[] = "Tes1t8";
+    digitsToStart(s);
+    ASSERT_STRING("18Test", s);
 }
 
 int main(){
     test_removeNonLetters();
     test_removeExtraSpaces();
+    test_digitsToStart();
 }

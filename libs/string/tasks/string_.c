@@ -4,13 +4,13 @@
 #include <assert.h>
 #include <memory.h>
 
-size_t strlen_(const char *begi)
+/*size_t strlen_(const char *begi)
 {
     char *end = begi;
     while (*end != '\0')
         end++;
     return end - begi;
-}
+}*/
 
 char *find(char *begin, char *end, int ch)
 {
@@ -122,27 +122,6 @@ char *getEndOfString(char *s)
     return end;
 }
 
-void removeNonLetters(char *s)
-{
-    char *endSource = getEndOfString(s);
-    char *destination = copyIf(s, endSource, s, isgraph);
-    *destination = '\0';
-}
-
-void assertString(const char *expected, char *got, char const *fileName, char const *funcName, int line)
-{
-    if (strcmp(expected, got))
-    {
-        fprintf(stderr, "File %s\n", fileName);
-        fprintf(stderr, "%s - failed on line %d\n", funcName, line);
-        fprintf(stderr, "Expected: \"%s\"\n", expected);
-        fprintf(stderr, "Got: \"%s\"\n\n", got);
-    }
-    else
-    {
-        fprintf(stderr, "%s - OK\n", funcName);
-    }
-}
 
 
 
@@ -213,13 +192,6 @@ void test_copyIf()
     {
         assert(destination[i] == "Helloworld"[i]);
     }
-}
-
-void test_assertString()
-{
-    char s[] = "Te st";
-    removeNonLetters(s);
-    ASSERT_STRING("Test", s);
 }
 
 void test()
