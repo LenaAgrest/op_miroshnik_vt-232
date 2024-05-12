@@ -92,4 +92,18 @@ int isWordInBagOfWords(WordDescriptor word, BagOfWords bag);
 
 WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
 
+bool hasDuplicateWords(char* sentence);
+
+char* sortWord(char *word);
+
+char *my_strdup(const char *str);
+
+int findPairWithSameLetters(char *str);
+
+char *strcat_(char *dest, const char *src);
+
+void removeLastSpace(char *str);
+
+char* getWordsDifferentFromLast(char *str);
+
 #endif

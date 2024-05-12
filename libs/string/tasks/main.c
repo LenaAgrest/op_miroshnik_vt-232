@@ -102,6 +102,25 @@ void test_lastWordInFirstStringInSecondString()
     ASSERT_STRING(str1, "");
 }
 
+void test_hasDuplicateWords()
+{
+    char str1[] = "2 apple 2 banana 2 cherry 2 2 apple 2 banana 2 cherry 2";
+    assert(hasDuplicateWords(str1) == 1);
+}
+
+void test_findPairWithSameLetters()
+{
+    char str1[] = "hello world olleh dlrow";
+    assert(findPairWithSameLetters(str1) == 1);
+}
+
+void test_getWordsDifferentFromLast()
+{
+    char s[] = "car arc car rac car";
+    char *modified_s = getWordsDifferentFromLast(s);
+    ASSERT_STRING(modified_s, "arc rac");
+}
+
 int main()
 {
     test_removeNonLetters();
@@ -116,4 +135,7 @@ int main()
     test_reverseWords();
     test_getWordBeforeFirstWordWithA();
     test_lastWordInFirstStringInSecondString();
+    test_hasDuplicateWords();
+    test_findPairWithSameLetters();
+    test_getWordsDifferentFromLast();
 }

@@ -600,3 +600,155 @@ WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
 
     return lastWord;
 }
+
+bool hasDuplicateWords(char* sentence) {
+    char* words[100];
+    int wordCount = 0;
+
+    char* word = strtok_(sentence, " ");
+    while (word != NULL) {
+        words[wordCount] = word;
+
+        wordCount++;
+
+        word = strtok_(NULL, " ");
+    }
+
+    for (int i = 0; i < wordCount; i++) {
+        for (int j = i + 1; j < wordCount; j++) {
+            if (strcmp(words[i], words[j]) == 0) {
+                return 1;
+            }
+        }
+    }
+
+    return 0;
+}
+
+char* sortWord(char *word) {
+    int length = strlen_(word);
+    char *sortedWord = (char*)malloc((length + 1) * sizeof(char));
+
+    strcpy_(sortedWord, word);
+
+    for (int i = 0; i < length; i++) {
+        for (int j = 0; j < length - 1; j++) {
+            if (tolower(sortedWord[j]) > tolower(sortedWord[j + 1])) {
+                char temp = sortedWord[j];
+                sortedWord[j] = sortedWord[j + 1];
+                sortedWord[j + 1] = temp;
+            }
+        }
+    }
+
+    return sortedWord;
+}
+
+char *my_strdup(const char *str) {
+    if (str == NULL) {
+        return NULL;
+    }
+
+    size_t len = strlen_(str) + 1;
+    char *new_str = (char *)malloc(len);
+
+    if (new_str == NULL) {
+        return NULL;
+    }
+
+    strcpy_(new_str, str);
+
+    return new_str;
+}
+
+int findPairWithSameLetters(char *str) {
+    char *buffer = my_strdup(str);
+    char *token, *saveptr;
+    char *words[MAX_WORDS];
+    int numWords = 0;
+
+    token = my_strtok_r(buffer, " ", &saveptr);
+
+    while (token != NULL) {
+        words[numWords++] = my_strdup(token);
+        token = my_strtok_r(NULL, " ", &saveptr);
+    }
+
+    for (int i = 0; i < numWords; i++) {
+        char *sortedWord1 = sortWord(words[i]);
+        for (int j = i + 1; j < numWords; j++) {
+            char *sortedWord2 = sortWord(words[j]);
+            if (strcmp(sortedWord1, sortedWord2) == 0) {
+                free(sortedWord1);
+                free(sortedWord2);
+
+                return 1;
+            }
+
+            free(sortedWord2);
+        }
+
+        free(sortedWord1);
+    }
+
+    return 0;
+}
+
+char *strcat_(char *dest, const char *src) {
+    char *ptr = dest;
+
+    while (*ptr != '\0') {
+        ptr++;
+    }
+
+    while (*src != '\0') {
+        *ptr = *src;
+
+        ptr++;
+        src++;
+    }
+
+    *ptr = '\0';
+
+    return dest;
+}
+
+void removeLastSpace(char *str) {
+    int len = strlen_(str);
+
+    if (str[len - 1] == ' ') {
+        str[len - 1] = '\0';
+    }
+}
+
+char* getWordsDifferentFromLast(char *str) {
+    char *buffer = my_strdup(str);
+    char *token, *saveptr;
+    char *lastWord;
+    char *result = (char*)malloc(strlen_(str) * sizeof(char));
+
+    result[0] = '\0';
+
+    token = my_strtok_r(buffer, " ", &saveptr);
+
+    while (token != NULL) {
+        lastWord = token;
+        token = my_strtok_r(NULL, " ", &saveptr);
+    }
+
+    buffer = my_strdup(str);
+    token = strtok_(buffer, " ");
+
+    while (token != NULL) {
+        if (strcmp(token, lastWord) != 0) {
+            strcat_(result, token);
+            strcat_(result, " ");
+        }
+
+        token = strtok_(NULL, " ");
+    }
+
+    removeLastSpace(result);
+
+    return result;
+}
