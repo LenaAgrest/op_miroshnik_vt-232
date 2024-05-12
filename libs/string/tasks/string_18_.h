@@ -64,4 +64,16 @@ bool isWordPalindrome(char *begin, char *end);
 
 int howManyWordsPalindromes(char *s);
 
+void strcpy_(char *dest, const char *src);
+
+char *strchr_(const char *str, int c);
+
+char* my_strtok_r(char* str, const char* delim, char** saveptr);
+
+void mergeStrings(char *str1, char *str2, char *result);
+
+void reverse(char *begin, char *end);
+
+void reverseWords(char *str);
+
 #endif

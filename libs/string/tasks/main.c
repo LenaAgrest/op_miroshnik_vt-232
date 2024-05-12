@@ -51,13 +51,28 @@ void test_areWordsOrdered()
 
 void test_reverseWordsBag(){
 char s[MAX_STRING_SIZE] = "privet poka";
-reverseWordsBag(s);
+reverseWordsBag(s); printf("\n");
 //ASSERT_STRING("akop tevirp", s);
 }
 
 void test_howManyWordsPalindromes(){
 char s[] = "tot,abcba";
-assert(howManyWordsPalindromes(s) == 2); }
+assert(howManyWordsPalindromes(s) == 2); 
+}
+
+void test_mergeString(){
+    char s1[] = "a a a";
+    char s2[] = "a a a";
+    char result[100] = "";
+    mergeStrings(s1, s2, result);
+    ASSERT_STRING("a a a a a a", result);
+}
+
+void test_reverseWords(){
+    char p[MAX_STRING_SIZE] = "a a a";
+    reverseWords(p);
+    ASSERT_STRING( "a a a", p);
+}
 
 int main()
 {
@@ -69,4 +84,6 @@ int main()
     test_areWordsOrdered();
     test_reverseWordsBag();
     test_howManyWordsPalindromes();
+    test_mergeString();
+    test_reverseWords();
 }

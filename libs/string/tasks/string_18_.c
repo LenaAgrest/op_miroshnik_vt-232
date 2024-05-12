@@ -323,3 +323,126 @@ int howManyWordsPalindromes(char *s) {
 
     return countPalindromes;
 }
+
+void strcpy_(char *dest, const char *src) {
+    while (*src) {
+        *dest = *src;
+
+        dest++;
+        src++;
+    }
+
+    *dest = '\0';
+}
+
+//находит последнее вхождение символа в строку
+char *strchr_(const char *str, int c) {
+    char *last = NULL;
+    while (*str != '\0') {
+        if (*str == c) {
+            last = (char *)str;
+        }
+
+        str++;
+    }
+
+    return last;
+}
+
+//разбивает строки на токены (слова) с использованием разделителей
+char* my_strtok_r(char* str, const char* delim, char** saveptr) {
+    char* token;
+
+    if (str == NULL) {
+        str = *saveptr;
+    }
+
+    int len = 0;
+
+    while (str[len] != '\0' && strchr_(delim, str[len]) != NULL) {
+        len++;
+    }
+
+    str += len;
+
+    if (*str == '\0') {
+        *saveptr = str;
+
+        return NULL;
+    }
+
+    token = str;
+    str = strpbrk_(token, delim);
+
+    if (str == NULL) {
+        *saveptr = token + strlen_(token);
+    } else {
+        *str = '\0';
+        *saveptr = str + 1;
+    }
+
+    return token;
+}
+
+//получает строку, в которой чередуются слова первой и второй строки
+void mergeStrings(char *str1, char *str2, char *result) {
+    char *token1, *token2;
+    char *saveptr1, *saveptr2;
+
+    token1 = my_strtok_r(str1, " ", &saveptr1);
+    token2 = my_strtok_r(str2, " ", &saveptr2);
+
+    while (token1 != NULL || token2 != NULL) {
+        if (token1 != NULL) {
+            strcpy_(result, token1);
+
+            result += strlen_(token1);
+            *result = ' ';
+
+            result++;
+
+            token1 = my_strtok_r(NULL, " ", &saveptr1);
+        }
+
+        if (token2 != NULL) {
+            strcpy_(result, token2);
+
+            result += strlen_(token2);
+            *result = ' ';
+
+            result++;
+
+            token2 = my_strtok_r(NULL, " ", &saveptr2);
+        }
+    }
+
+    *(result - 1) = '\0';
+}
+
+void reverse(char *begin, char *end) {
+    char temp;
+    while (begin < end) {
+        temp = *begin;
+        *begin++ = *end;
+        *end-- = temp;
+    }
+}
+
+void reverseWords(char *str) {
+    char *word_begin = str;
+    char *temp = str;
+
+    while (*temp) {
+        temp++;
+
+        if (*temp == '\0') {
+            reverse(word_begin, temp - 1);
+        } else if (*temp == ' ') {
+            reverse(word_begin, temp - 1);
+
+            word_begin = temp + 1;
+        }
+    }
+
+    reverse(str, temp - 1);
+}
