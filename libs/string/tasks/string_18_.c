@@ -166,7 +166,6 @@ void replace(char *source, char *w1, char *w2){
     *recPtr = '\0';
 }
 
-//сравнивает два слова
 bool areWordsEqual(WordDescriptor w1, WordDescriptor w2) {
     int len1 = w1.end - w1.begin;
     int len2 = w2.end - w2.begin;
@@ -253,4 +252,74 @@ bool areWordsOrdered(char *s) {
     }
 
     return 1;
+}
+
+void getBagOfWords(BagOfWords *bag, char *s) {
+    char *token = strtok_(s, " ");
+    int wordCount = 0;
+
+    while (token != NULL) {
+        int wordLen = strlen_(token);
+
+        bag->words[wordCount].begin = token;
+        bag->words[wordCount].end = token + wordLen;
+
+        wordCount++;
+        token = strtok_(NULL, " ");
+    }
+
+    bag->size = wordCount;
+}
+
+void reverseWordsBag(char *s) {
+    getBagOfWords(&_bag, s);
+
+    for (int i = _bag.size - 1; i >= 0; i--) {
+        for (char *ptr = _bag.words[i].end - 1; ptr >= _bag.words[i].begin; ptr--) {
+            printf("%c", *ptr);
+        }
+
+        printf(" ");
+    }
+}
+
+bool isWordPalindrome(char *begin, char *end) {
+    end--;
+
+    while (end - begin > 0) {
+        if (*begin != *end) {
+            return 0;
+        }
+
+        begin++;
+        end--;
+    }
+
+    return 1;
+}
+
+int howManyWordsPalindromes(char *s) {
+    char *endS = getEndOfString(s);
+    char *beginSearch = findNonSpace(s);
+
+    int countPalindromes = 0;
+
+    char *commaPos = find(beginSearch, endS, ',');
+
+    bool lastComma = *commaPos == '\0' && endS - beginSearch != 0;
+
+    while (*commaPos != '\0' || lastComma) {
+        beginSearch = findNonSpace(beginSearch);
+        countPalindromes += isWordPalindrome(beginSearch, commaPos);
+        beginSearch = commaPos + 1;
+
+        if (lastComma) {
+            break;
+        }
+
+        commaPos = find(beginSearch, endS, ',');
+        lastComma = *commaPos == '\0';
+    }
+
+    return countPalindromes;
 }

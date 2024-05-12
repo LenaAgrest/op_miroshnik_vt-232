@@ -56,4 +56,12 @@ char* strtok_(char* str, const char* delim);
 
 bool areWordsOrdered(char *s);
 
+void getBagOfWords(BagOfWords *bag, char *s);
+
+void reverseWordsBag(char *s);
+
+bool isWordPalindrome(char *begin, char *end);
+
+int howManyWordsPalindromes(char *s);
+
 #endif

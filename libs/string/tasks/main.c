@@ -49,6 +49,16 @@ void test_areWordsOrdered()
     assert(areWordsOrdered(s) == 0);
 }
 
+void test_reverseWordsBag(){
+char s[MAX_STRING_SIZE] = "privet poka";
+reverseWordsBag(s);
+//ASSERT_STRING("akop tevirp", s);
+}
+
+void test_howManyWordsPalindromes(){
+char s[] = "tot,abcba";
+assert(howManyWordsPalindromes(s) == 2); }
+
 int main()
 {
     test_removeNonLetters();
@@ -57,4 +67,6 @@ int main()
     test_replacesNumbersWithSpaces();
     test_replace();
     test_areWordsOrdered();
+    test_reverseWordsBag();
+    test_howManyWordsPalindromes();
 }
