@@ -446,3 +446,157 @@ void reverseWords(char *str) {
 
     reverse(str, temp - 1);
 }
+
+void printWordBeforeFirstWordWithA(char *s) {
+    char *word = NULL;
+    char *token = strtok_(s, " ");
+
+    while (token != NULL) {
+        int foundA = 0;
+        for (int i = 0; token[i] != '\0'; i++) {
+            if (tolower(token[i]) == 'a') {
+                foundA = 1;
+                break;
+            }
+        }
+
+        if (foundA) {
+            if (word != NULL) {
+                printf("%s\n", word);
+                return;
+            }
+        } else {
+            word = token;
+        }
+
+        token = strtok_(NULL, " ");
+    }
+}
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDescriptor *w) {
+    if (s == NULL || strlen_(s) == 0) {
+        return EMPTY_STRING;
+    }
+
+    char *wordBegin = NULL;
+    char *wordEnd = NULL;
+    char *token = strtok_(s, " ");
+
+    while (token != NULL) {
+        int foundA = 0;
+        for (int i = 0; token[i] != '\0'; i++) {
+            if (tolower(token[i]) == 'a') {
+                foundA = 1;
+                break;
+            }
+        }
+
+        if (foundA) {
+            if (wordBegin != NULL) {
+                w->begin = wordBegin;
+                w->end = wordEnd;
+                return WORD_FOUND;
+            } else {
+                return FIRST_WORD_WITH_A;
+            }
+        } else {
+            wordBegin = token;
+            wordEnd = token + strlen_(token);
+        }
+
+        token = strtok_(NULL, " ");
+    }
+
+    return NOT_FOUND_A_WORD_WITH_A;
+}
+
+int strncmp_(const char *s1, const char *s2, int n) {
+    while (n--) {
+
+        if (*s1 != *s2) {
+            return (unsigned char) *s1 - (unsigned char) *s2;
+        }
+
+        if (*s1 == '\0') {
+            return 0;
+        }
+
+        s1++;
+        s2++;
+    }
+
+    return 0;
+}
+
+char *strncpy_(char *destination, const char *source, int num) {
+    char *start = destination;
+
+    while (num && (*destination++ = *source++)) {
+        num--;
+    }
+
+    if (num) {
+        while (--num) {
+            *destination++ = '\0';
+        }
+    }
+
+    return start;
+}
+
+void wordDescriptorToString(WordDescriptor word, char *destination) {
+    int length = word.end - word.begin;
+    strncpy_(destination, word.begin, length);
+    destination[length] = '\0';
+}
+
+BagOfWords createBagOfWordsFromString(char *s) {
+    BagOfWords bag;
+    bag.size = 0;
+
+    char *wordBegin = s;
+    for (; *s; ++s) {
+        if (isspace(*s)) {
+            if (s > wordBegin) {
+                bag.words[bag.size].begin = wordBegin;
+                bag.words[bag.size].end = s;
+
+                ++bag.size;
+            }
+
+            wordBegin = s + 1;
+        }
+    }
+
+    if (s > wordBegin) {
+        bag.words[bag.size].begin = wordBegin;
+        bag.words[bag.size].end = s;
+
+        ++bag.size;
+    }
+
+    return bag;
+}
+
+int isWordInBagOfWords(WordDescriptor word, BagOfWords bag) {
+    for (int i = 0; i < bag.size; ++i) {
+        if (strncmp_(word.begin, bag.words[i].begin, word.end - word.begin) == 0) {
+            return 1;
+        }
+    }
+    return 0;
+}
+
+WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2) {
+    BagOfWords bag = createBagOfWordsFromString(s2);
+    WordDescriptor lastWord = {NULL, NULL};
+
+    BagOfWords wordsInS1 = createBagOfWordsFromString(s1);
+    for (int i = 0; i < wordsInS1.size; ++i) {
+        if (isWordInBagOfWords(wordsInS1.words[i], bag)) {
+            lastWord = wordsInS1.words[i];
+        }
+    }
+
+    return lastWord;
+}

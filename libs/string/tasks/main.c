@@ -49,18 +49,22 @@ void test_areWordsOrdered()
     assert(areWordsOrdered(s) == 0);
 }
 
-void test_reverseWordsBag(){
-char s[MAX_STRING_SIZE] = "privet poka";
-reverseWordsBag(s); printf("\n");
-//ASSERT_STRING("akop tevirp", s);
+void test_reverseWordsBag()
+{
+    char s[MAX_STRING_SIZE] = "privet poka";
+    reverseWordsBag(s);
+    printf("\n");
+    // ASSERT_STRING("akop tevirp", s);
 }
 
-void test_howManyWordsPalindromes(){
-char s[] = "tot,abcba";
-assert(howManyWordsPalindromes(s) == 2); 
+void test_howManyWordsPalindromes()
+{
+    char s[] = "tot,abcba";
+    assert(howManyWordsPalindromes(s) == 2);
 }
 
-void test_mergeString(){
+void test_mergeString()
+{
     char s1[] = "a a a";
     char s2[] = "a a a";
     char result[100] = "";
@@ -68,10 +72,34 @@ void test_mergeString(){
     ASSERT_STRING("a a a a a a", result);
 }
 
-void test_reverseWords(){
+void test_reverseWords()
+{
     char p[MAX_STRING_SIZE] = "a a a";
     reverseWords(p);
-    ASSERT_STRING( "a a a", p);
+    ASSERT_STRING("a a a", p);
+}
+
+void test_getWordBeforeFirstWordWithA()
+{
+    WordDescriptor word;
+    char s1[] = "";
+    assert(getWordBeforeFirstWordWithA(s1, &word) == EMPTY_STRING);
+    char s2[] = "ABC";
+    assert(getWordBeforeFirstWordWithA(s2, &word) == FIRST_WORD_WITH_A);
+    char s3[] = "BC A";
+    assert(getWordBeforeFirstWordWithA(s3, &word) == WORD_FOUND);
+    char s4[] = "B Q WE YR OW  IUWR";
+    assert(getWordBeforeFirstWordWithA(s4, &word) == NOT_FOUND_A_WORD_WITH_A);
+}
+
+void test_lastWordInFirstStringInSecondString()
+{
+    char s1_1[] = "A B C D E";
+    char s2_1[] = "Y U";
+    WordDescriptor word1 = lastWordInFirstStringInSecondString(s1_1, s2_1);
+    char str1[MAX_WORD_SIZE];
+    wordDescriptorToString(word1, str1);
+    ASSERT_STRING(str1, "");
 }
 
 int main()
@@ -86,4 +114,6 @@ int main()
     test_howManyWordsPalindromes();
     test_mergeString();
     test_reverseWords();
+    test_getWordBeforeFirstWordWithA();
+    test_lastWordInFirstStringInSecondString();
 }

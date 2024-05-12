@@ -76,4 +76,20 @@ void reverse(char *begin, char *end);
 
 void reverseWords(char *str);
 
+void printWordBeforeFirstWordWithA(char *s);
+
+WordBeforeFirstWordWithAReturnCode getWordBeforeFirstWordWithA(char *s, WordDescriptor *w);
+
+int strncmp_(const char *s1, const char *s2, int n);
+
+char *strncpy_(char *destination, const char *source, int num);
+
+void wordDescriptorToString(WordDescriptor word, char *destination);
+
+BagOfWords createBagOfWordsFromString(char *s);
+
+int isWordInBagOfWords(WordDescriptor word, BagOfWords bag);
+
+WordDescriptor lastWordInFirstStringInSecondString(char *s1, char *s2);
+
 #endif
