@@ -106,4 +106,18 @@ void removeLastSpace(char *str);
 
 char* getWordsDifferentFromLast(char *str);
 
+char* strstr_(char* haystack, char* needle);
+
+char* findWordBefore(char *s1, char *s2);
+
+int is_palindrome(char *word);
+
+void removePalindromes(char *str);
+
+BagOfWords *create_bag_of_words(char *s);
+
+void append(char *s1, char *s2);
+
+int checkWordInString(char *word, char *str);
+
 #endif

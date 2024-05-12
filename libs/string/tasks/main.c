@@ -121,6 +121,37 @@ void test_getWordsDifferentFromLast()
     ASSERT_STRING(modified_s, "arc rac");
 }
 
+void test_findWordBefore()
+{
+    char s1[] = "apple banana hi cherry";
+    char s2[] = "hi hey";
+    char *result = findWordBefore(s1, s2);
+    ASSERT_STRING(result, "banana");
+}
+
+void test_removePalindromes()
+{
+    char s[] = "pop apple pop";
+    removePalindromes(s);
+    ASSERT_STRING(s, "apple");
+}
+
+void test_append()
+{
+    char s1[MAX_STRING_SIZE] = "hihi haha";
+    char s2[MAX_STRING_SIZE] = "haha hihi";
+    append(s1, s2);
+    ASSERT_STRING("hihi haha", s1);
+    ASSERT_STRING("haha hihi", s2);
+}
+
+void test_checkWordInString()
+{
+    char word[] = "pop";
+    char str[] = "parrot";
+    assert(checkWordInString(word, str) == 1);
+}
+
 int main()
 {
     test_removeNonLetters();
@@ -138,4 +169,7 @@ int main()
     test_hasDuplicateWords();
     test_findPairWithSameLetters();
     test_getWordsDifferentFromLast();
+    test_findWordBefore();
+    test_removePalindromes();
+    test_append();
 }
