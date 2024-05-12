@@ -5,26 +5,39 @@ __FILE__, __FUNCTION__, __LINE__)
 #include <stdio.h>
 #include <assert.h>
 
-void test_removeNonLetters(){
+void test_removeNonLetters()
+{
     char s[] = "Te st 18 1";
     removeNonLetters(s);
     ASSERT_STRING("Test181", s);
 }
 
-void test_removeExtraSpaces(){
+void test_removeExtraSpaces()
+{
     char s[] = "    It`s     test     task     two     eighteen     lab    ";
     removeExtraSpaces(s);
     ASSERT_STRING("It`s test task two eighteen lab", s);
 }
 
-void test_digitsToStart(){
+void test_digitsToStart()
+{
     char s[] = "Tes1t8";
     digitsToStart(s);
     ASSERT_STRING("18Test", s);
 }
 
-int main(){
+void test_replacesNumbersWithSpaces()
+{
+    char s[MAX_STRING_SIZE] = "e1up0hor2ia";
+    char s1[MAX_STRING_SIZE];
+    replacesNumbersWithSpaces(s, s1);
+    ASSERT_STRING("e uphor  ia", s1);
+}
+
+int main()
+{
     test_removeNonLetters();
     test_removeExtraSpaces();
     test_digitsToStart();
+    test_replacesNumbersWithSpaces();
 }

@@ -42,5 +42,9 @@ void digitsToStart(char *s);
 
 int getWordReverse(char *rbegin, char *rend, WordDescriptor *word);
 
+void replacesNumbersWithSpaces(char *input, char *output);
+
+void replace(char *source, char *w1, char *w2);
+
 
 #endif
