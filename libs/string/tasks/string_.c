@@ -4,7 +4,7 @@
 #include <assert.h>
 #include <memory.h>
 
-size_t strlen_(const char *begin) {
+size_t strlen_(char *begin) {
     char *end = begin;
 
     while (*end != '\0') {

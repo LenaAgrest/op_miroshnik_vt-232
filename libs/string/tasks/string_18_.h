@@ -46,5 +46,14 @@ void replacesNumbersWithSpaces(char *input, char *output);
 
 void replace(char *source, char *w1, char *w2);
 
+void replace(char *source, char *w1, char *w2);
+
+bool areWordsEqual(WordDescriptor w1, WordDescriptor w2);
+
+char* strpbrk_(const char* str, const char* delim);
+
+char* strtok_(char* str, const char* delim);
+
+bool areWordsOrdered(char *s);
 
 #endif

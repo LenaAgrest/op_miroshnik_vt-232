@@ -1,5 +1,5 @@
 #define ASSERT_STRING(expected, got) assertString(expected, got, \
-__FILE__, __FUNCTION__, __LINE__)
+                                                  __FILE__, __FUNCTION__, __LINE__)
 
 #include "string_18_.c"
 #include <stdio.h>
@@ -34,10 +34,27 @@ void test_replacesNumbersWithSpaces()
     ASSERT_STRING("e uphor  ia", s1);
 }
 
+void test_replace()
+{
+    char s[MAX_STRING_SIZE] = "hello world hello";
+    char *word1 = "aaa";
+    char *word2 = "hey";
+    replace(s, word1, word2);
+    ASSERT_STRING("hello world hello", s);
+}
+
+void test_areWordsOrdered()
+{
+    char s[] = "banana apple cherry";
+    assert(areWordsOrdered(s) == 0);
+}
+
 int main()
 {
     test_removeNonLetters();
     test_removeExtraSpaces();
     test_digitsToStart();
     test_replacesNumbersWithSpaces();
+    test_replace();
+    test_areWordsOrdered();
 }
