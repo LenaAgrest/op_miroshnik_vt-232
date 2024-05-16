@@ -132,8 +132,7 @@ void replacesNumbersWithSpaces(char *input, char *output)
     output[j] = '\0';
 }
 
-void replace(char *source, char *w1, char *w2)
-{
+void replace(char *source, char *w1, char *w2) {
     size_t w1Size = strlen_(w1);
     size_t w2Size = strlen_(w2);
 
@@ -142,41 +141,30 @@ void replace(char *source, char *w1, char *w2)
 
     char *readPtr, *recPtr;
 
-    if (w1Size >= w2Size)
-    {
+    if (w1Size >= w2Size) {
         readPtr = source;
         recPtr = source;
-    }
-    else
-    {
+    } else {
         copy(source, getEndOfString(source), _stringBuffer);
-
         readPtr = _stringBuffer;
         recPtr = source;
     }
 
-    while (*readPtr != '\0')
-    {
-        if (memcmp(readPtr, w1, w1Size) == 0)
-        {
-            for (int i = 0; i < w2Size; ++i)
-            {
-                *recPtr = w2[i];
-
+    while (*readPtr != '\0') {
+        if (memcmp_(readPtr, w1, w1Size) == 0) {
+            char *w2Ptr = w2;
+            while (w2Ptr != word2.end) {
+                *recPtr = *w2Ptr;
                 recPtr++;
+                w2Ptr++;
             }
-
             readPtr += w1Size;
-        }
-        else
-        {
+        } else {
             *recPtr = *readPtr;
-
             readPtr++;
             recPtr++;
         }
     }
-
     *recPtr = '\0';
 }
 

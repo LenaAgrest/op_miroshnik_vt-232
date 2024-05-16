@@ -4,14 +4,11 @@
 #include <assert.h>
 #include <memory.h>
 
-size_t strlen_(char *begin) {
-    char *end = begin;
-
-    while (*end != '\0') {
-        end++;
-    }
-
-    return end - begin;
+size_t strlen_(const char *str) {
+    const char *s = str;
+    while (*s)
+        s++;
+    return s - str;
 }
 
 char *find(char *begin, char *end, int ch)
