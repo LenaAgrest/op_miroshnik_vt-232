@@ -1,15 +1,26 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
+#include <string.h>
 #include <C:\Users\wwwri\OneDrive\Рабочий стол\2 семестр\оп\lab 14\op_miroshnik_vt-232\libs\data_structures\matrix\matrix.c>
+
 #define MAX_FILE_SIZE 1024
+#define MAX_LENGTH 100
+#define MAX_WORD_LENGTH 15
+#define MAX_NUM_WORDS 5
+#define NUM_LINES 10
+
+typedef struct {
+    int power;
+    int coefficient;
+} Polynomial;
 //сравнивает два файла на равенство
 void assertTXT(const char *file1, const char *file2) {
     FILE *f1 = fopen(file1, "r");
     FILE *f2 = fopen(file2, "r");
 
     if (f1 == NULL || f2 == NULL) {
-        printf("Error...\n");
+        printf("Ошибка...\n");
 
         return;
     }
@@ -123,34 +134,6 @@ int task_2(const char *str) {
     fclose(outputFile);
 
     return 0;
-}
-
-//заполняет файл случайным арифметическим выражением
-void generateFileWithRandomMathExpression(const char* filename) {
-    FILE *file = fopen(filename, "w");
-    int num1, num2, num3;
-    char operator, operator1;
-
-    if (file == NULL) {
-        printf("Error open file 4\n");
-        return;
-    }
-
-    srand(time(NULL));
-
-    num1 = rand() % 10;
-    num2 = rand() % 10;
-    operator = rand() % 4; // 0 - '+', 1 - '-', 2 - '*', 3 - '/'
-
-    fprintf(file, "%d %c %d", num1, operator == 0 ? '+' : operator == 1 ? '-' : operator == 2 ? '*' : '/', num2);
-
-    if (num1 < 5){
-        num3 = rand() % 10;
-        operator1 = rand() % 4;
-        fprintf(file, " %c %d", operator1 == 0 ? '+' : operator1 == 1 ? '-' : operator1 == 2 ? '*' : '/', num3);
-    }
-
-    fclose(file);
 }
 
 //3
@@ -320,13 +303,13 @@ int task_4(const char* sourceFilename, const char* destinationFilename, const ch
 
     sourceFile = fopen(sourceFilename, "r");
     if (sourceFile == NULL) {
-        printf("Ошибка открытия исходного файла\n");
+        printf("Error open file in\n");
         return 1;
     }
 
     destinationFile = fopen(destinationFilename, "w");
     if (destinationFile == NULL) {
-        printf("Ошибка открытия файла назначения\n");
+        printf("Error open file out\n");
         fclose(sourceFile);
         return 1;
     }
@@ -343,4 +326,116 @@ int task_4(const char* sourceFilename, const char* destinationFilename, const ch
     fclose(destinationFile);
 
     return 0;
+}
+//заполняет файл 10 строками с различными последовательностями (словами)
+void generateFileWithStringsSequences(const char* fileName) {
+    FILE *file = fopen(fileName, "w");
+    if (file == NULL) {
+        printf("Error open file \n");
+        return;
+    }
+
+    srand(time(NULL));
+
+    for (int i = 0; i < NUM_LINES; i++) {
+        int numWords = rand() % MAX_NUM_WORDS + 1;
+        for (int j = 0; j < numWords; j++) {
+            int wordLength = rand() % MAX_WORD_LENGTH + 1;
+            for (int k = 0; k < wordLength; k++) {
+                char randomChar = 'a' + rand() % 26;
+                fputc(randomChar, file);
+            }
+            if (j < numWords - 1) {
+                fputc(' ', file);
+            }
+        }
+        fprintf(file, " \n");
+    }
+
+    fclose(file);
+}
+
+//Задание 5: преобразовать файл, оставив в каждой строке только самое длинное слово
+int task_5(const char* sourceFilename, const char* destinationFilename) {
+    FILE *sourceFile, *destinationFile;
+
+    sourceFile = fopen(sourceFilename, "r");
+    if (sourceFile == NULL) {
+        printf("Error open file in\n");
+        return 1;
+    }
+
+    destinationFile = fopen(destinationFilename, "w");
+    if (destinationFile == NULL) {
+        printf("Error open file out\n");
+        fclose(sourceFile);
+        return 1;
+    }
+
+    char line[MAX_LENGTH];
+    char longestWord[MAX_LENGTH];
+    int maxLength = 0;
+
+    while (fgets(line, sizeof(line), sourceFile)) {
+        char* word = strtok(line, " ");
+        char* lastWord = NULL;
+        while (word != NULL) {
+            int length = strlen(word);
+            if (length > maxLength) {
+                maxLength = length;
+                strcpy(longestWord, word);
+            }
+
+            lastWord = word;
+            word = strtok(NULL, " ");
+        }
+
+        fprintf(destinationFile, "%s\n", longestWord);
+
+        maxLength = 0;
+    }
+
+    fclose(sourceFile);
+    fclose(destinationFile);
+
+    return 0;
+}
+
+//возводит число в степень
+int pow_(int base, int exp) {
+    int result = 1;
+    while (exp > 0) {
+        result *= base;
+        exp--;
+    }
+
+    return result;
+}
+
+//Задание 6: удалить многочлены с корнем x из бинарного файла
+void task_6(const char *filename, int x) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Error open file in\n");
+        exit(-3);
+    }
+
+    FILE *temp_file = fopen("C:\\Users\\wwwri\\files\\converted_task_6.txt", "wb");
+
+    if (!temp_file) {
+        printf("Error open file out\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    Polynomial poly;
+
+    while (fread(&poly, sizeof(Polynomial), 1, file)) {
+        if ((poly.coefficient * pow_(x, poly.power)) != (x * x)) {
+            fwrite(&poly, sizeof(Polynomial), 1, temp_file);
+        }
+    }
+
+    fclose(file);
+    fclose(temp_file);
 }
