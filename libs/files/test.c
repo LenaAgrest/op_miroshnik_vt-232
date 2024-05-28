@@ -69,13 +69,35 @@ void test_task_6() {
 
     assertTXT(str2, str3);
 }
+
+void test_task_7() {
+    const char *str1 = "C:\\Users\\wwwri\\files\\original_task_7.txt";
+    const char *str2 = "C:\\Users\\wwwri\\files\\converted_task_7.txt";
+    const char *str3 = "C:\\Users\\wwwri\\files\\for_verification_task_7.txt";
+    task_7(str1);
+    printf("7:");
+    assertTXT(str2, str3);
+}
+
+void test_task_8() {
+    const char *str1 = "C:\\Users\\wwwri\\files\\original_task_8.txt";
+    const char *str2 = "C:\\Users\\wwwri\\files\\converted_task_8.txt";
+    const char *str3 = "C:\\Users\\wwwri\\files\\for_verification_task_8.txt";
+    task_8(str1);
+    printf("8:");
+    assertTXT(str2, str3);
+}
 int main(){
     SetConsoleOutputCP(CP_UTF8);
 
     /*test_task_1();
     test_task_2();
     test_task_3();
-    test_task_4();*/
+    test_task_4();
     test_task_5();
-    test_task_6();
+    test_task_6();*/
+    test_task_7();
+    test_task_8();
+    //test_task_9();
+    //test_task_10();
 }

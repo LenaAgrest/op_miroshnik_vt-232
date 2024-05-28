@@ -439,3 +439,75 @@ void task_6(const char *filename, int x) {
     fclose(file);
     fclose(temp_file);
 }
+
+//Задание 7: записать в файле сначала положительные, а затем отрицательные числа, сохраняя порядок их следования
+void task_7(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+
+    if (file == NULL) {
+        printf("Error open file in\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("C:\\Users\\wwwri\\files\\converted_task_7.txt", "wb");
+
+    if (result_file == NULL) {
+        printf("Error open file out\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    int positive_number;
+
+    while (fread(&positive_number, sizeof(positive_number), 1, file)) {
+        if (positive_number > 0) {
+            fwrite(&positive_number, sizeof(positive_number), 1, result_file);
+        }
+    }
+
+    fclose(file);
+
+    file = fopen(filename, "rb");
+
+    int negative_number;
+
+    while (fread(&negative_number, sizeof(negative_number), 1, file)) {
+        if (negative_number < 0) {
+            fwrite(&negative_number, sizeof(negative_number), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+//Задание 8: преобразовать файл, заменив в нём каждую матрицу, не являющуюся симметричной, транспонированной
+void task_8(const char *filename) {
+    FILE *file = fopen(filename, "rb");
+
+    if (file == NULL) {
+        printf("Ошибка открытия исходного файла\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("C:\\Users\\wwwri\\files\\converted_task_8.txt", "wb");
+
+    if (result_file == NULL) {
+        printf("Ошибка открытия файла назначения\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    matrix m;
+
+    while (fread(&m, sizeof(matrix), 1, file)) {
+        if (!isSymmetricMatrix(&m)) {
+            transposeMatrix(&m);
+            fwrite(&m, sizeof(matrix), 1, result_file);
+        } else {
+            fwrite(&m, sizeof(matrix), 1, result_file);
+        }
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
