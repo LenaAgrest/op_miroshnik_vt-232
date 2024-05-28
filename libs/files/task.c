@@ -14,6 +14,24 @@ typedef struct {
     int power;
     int coefficient;
 } Polynomial;
+
+typedef struct {
+    char *initials;
+    int score;
+} Sportsman;
+
+typedef struct {
+    char *name;
+    int unit_price;
+    int all_price;
+    int amount;
+} Goods;
+
+typedef struct {
+    char *name;
+    int amount;
+} OrderedGoods;
+
 //сравнивает два файла на равенство
 void assertTXT(const char *file1, const char *file2) {
     FILE *f1 = fopen(file1, "r");
@@ -297,7 +315,7 @@ void generateFileWithDifSequences(const char* filename, int numWords) {
     fclose(file);
 }
 
-//Задание 4: сохранить в файле только те слова, которые содержат данную последовательность символов
+//4
 int task_4(const char* sourceFilename, const char* destinationFilename, const char* sequence) {
     FILE *sourceFile, *destinationFile;
 
@@ -355,7 +373,7 @@ void generateFileWithStringsSequences(const char* fileName) {
     fclose(file);
 }
 
-//Задание 5: преобразовать файл, оставив в каждой строке только самое длинное слово
+//5
 int task_5(const char* sourceFilename, const char* destinationFilename) {
     FILE *sourceFile, *destinationFile;
 
@@ -412,7 +430,7 @@ int pow_(int base, int exp) {
     return result;
 }
 
-//Задание 6: удалить многочлены с корнем x из бинарного файла
+//6
 void task_6(const char *filename, int x) {
     FILE *file = fopen(filename, "rb");
     if (file == NULL) {
@@ -440,7 +458,7 @@ void task_6(const char *filename, int x) {
     fclose(temp_file);
 }
 
-//Задание 7: записать в файле сначала положительные, а затем отрицательные числа, сохраняя порядок их следования
+//7
 void task_7(const char *filename) {
     FILE *file = fopen(filename, "rb");
 
@@ -480,7 +498,7 @@ void task_7(const char *filename) {
     fclose(file);
     fclose(result_file);
 }
-//Задание 8: преобразовать файл, заменив в нём каждую матрицу, не являющуюся симметричной, транспонированной
+//8
 void task_8(const char *filename) {
     FILE *file = fopen(filename, "rb");
 
@@ -509,5 +527,105 @@ void task_8(const char *filename) {
     }
 
     fclose(file);
+    fclose(result_file);
+}
+
+//добавляет нового спортсмена в массив
+void appendS(Sportsman *a, size_t *const size, Sportsman value) {
+    a[*size] = (Sportsman) value;
+    (*size)++;
+}
+
+//9
+void task_9(const char *filename, int n) {
+    FILE *file = fopen(filename, "rb");
+    if (file == NULL) {
+        printf("Ошибка открытия исходного файла\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("C:\\Users\\wwwri\\files\\converted_task_9.txt", "wb");
+    if (result_file == NULL) {
+        printf("Ошибка открытия файла назначения\n");
+        fclose(file);
+        exit(-3);
+    }
+
+    size_t size = 0;
+    Sportsman persons[MAX_LENGTH];
+    Sportsman person;
+
+    while (fread(&person, sizeof(Sportsman), 1, file)) {
+        appendS(persons, &size, person);
+    }
+
+    for (int i = 0; i < n; ++i) {
+        Sportsman temp_player = {NULL, -999};
+        int idx = 0;
+
+        for (int j = 0; j < size; ++j) {
+            if (persons[j].score > temp_player.score) {
+                temp_player.score = persons[j].score;
+                temp_player.initials = persons[j].initials;
+                idx = j;
+            }
+        }
+
+        persons[idx].score = -999;
+        fwrite(&temp_player, sizeof(Sportsman), 1, result_file);
+    }
+
+    fclose(file);
+    fclose(result_file);
+}
+
+//10
+void task_10(const char *filename_f, const char *filename_g) {
+    FILE *file_f = fopen(filename_f, "rb");
+
+    if (file_f == NULL) {
+        printf("Ошибка открытия файла F\n");
+        exit(-3);
+    }
+
+    FILE *file_g = fopen(filename_g, "rb");
+
+    if (file_g == NULL) {
+        printf("Ошибка открытия файла G\n");
+        exit(-3);
+    }
+
+    FILE *result_file = fopen("C:\\Users\\wwwri\\files\\converted_task_10.txt", "wb");
+
+    if (result_file == NULL) {
+        printf("Ошибка открытия файла назначения\n");
+        fclose(file_f);
+        fclose(file_g);
+        exit(-3);
+    }
+
+    Goods stuff;
+    OrderedGoods ordered_stuff;
+
+    while (fread(&ordered_stuff, sizeof(OrderedGoods), 1, file_g)) {
+        while (fread(&stuff, sizeof(Goods), 1, file_f)) {
+            if (ordered_stuff.name == stuff.name) {
+                int price = ordered_stuff.amount * stuff.unit_price;
+
+                stuff.amount = stuff.amount - ordered_stuff.amount;
+                stuff.all_price = stuff.all_price - price;
+
+                if (stuff.amount > 0){
+                    fwrite(&stuff, sizeof(Goods), 1, result_file);
+                }
+
+                break;
+            } else
+                fwrite(&stuff, sizeof(Goods), 1, result_file);
+        }
+    }
+
+    fclose(file_f);
+    fclose(file_g);
     fclose(result_file);
 }

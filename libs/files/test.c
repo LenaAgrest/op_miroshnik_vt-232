@@ -87,17 +87,37 @@ void test_task_8() {
     printf("8:");
     assertTXT(str2, str3);
 }
+
+void test_task_9() {
+    const char *str1 = "C:\\Users\\wwwri\\files\\original_task_9.txt";
+    const char *str2 = "C:\\Users\\wwwri\\files\\converted_task_9.txt";
+    const char *str3 = "C:\\Users\\wwwri\\files\\for_verification_task_9.txt";
+    task_9(str1, 2);
+    printf("9:");
+    assertTXT(str2, str3);
+}
+
+void test_task_10() {
+    const char *str1 = "C:\\Users\\wwwri\\files\\original_F_task_10.txt";
+    const char *str2 = "C:\\Users\\wwwri\\files\\original_G_task_10.txt";
+    const char *str3 = "C:\\Users\\wwwri\\files\\converted_task_10.txt";
+    const char *str4 = "C:\\Users\\wwwri\\files\\for_verification_task_10.txt";
+    task_10(str1, str2);
+    printf("10:");
+    assertTXT(str3, str4);
+}
+
 int main(){
     SetConsoleOutputCP(CP_UTF8);
 
-    /*test_task_1();
+    test_task_1();
     test_task_2();
     test_task_3();
     test_task_4();
     test_task_5();
-    test_task_6();*/
+    test_task_6();
     test_task_7();
     test_task_8();
-    //test_task_9();
-    //test_task_10();
+    test_task_9();
+    test_task_10();
 }
