@@ -123,6 +123,19 @@ void test_7(){
     task_7(array, lengthArray);
 }
 
+void test_8(){
+    char s[4] = "abc";
+    int lenS = 3;
+    int indexes[3] = {0, 1, 2};
+    char got[4];
+
+    task_8(s, lenS, indexes, got);
+
+    char expected[4] = "abc";
+
+    assert(strcmp(got, expected) == 0);
+}
+
 int main(){
     test_1();
     test_2();
@@ -131,6 +144,7 @@ int main(){
     test_5();
     test_6();
     test_7();
+    test_8();
 
     return 0;
 }

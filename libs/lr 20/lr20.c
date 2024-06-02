@@ -321,3 +321,11 @@ void task_7(int array[], int lengthArray) {
 
     printf("\n");
 }
+
+void task_8(const char *s, int length, const int indexes[], char *newS){
+    for (int i = 0; i < length; i++){
+        newS[i] = s[indexes[i]];
+    }
+
+    newS[length] = '\0';
+}

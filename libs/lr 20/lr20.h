@@ -59,4 +59,6 @@ void breadthFirstTraversal(node *root);
 
 void task_7(int array[], int lengthArray);
 
+void task_8(const char *s, int length, const int indexes[], char *newS);
+
 #endif //LAB_14_LR20_H
