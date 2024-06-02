@@ -3,7 +3,8 @@
 
 #include <stdbool.h>
 #include "matrix.h"
-#include <stdbool.h>
+#include "../data_structures/vector/vector.h"
+#include <signal.h>
 
 typedef struct domain{
     size_t visits;
@@ -60,5 +61,13 @@ void breadthFirstTraversal(node *root);
 void task_7(int array[], int lengthArray);
 
 void task_8(const char *s, int length, const int indexes[], char *newS);
+
+FILE* openFile(char *fileName, char *action);
+
+void fillingFile(int numsArray[], int lengthArray, char *fileName);
+
+void readingNumsFilteringAndWriting(vector *v, char *rFileName, int controlNum, char *wFileName);
+
+void task_9(int numsArray[], int lengthArray, int controlNum, char *firstFileName, char *secondFileName, vector *v);
 
 #endif //LAB_14_LR20_H

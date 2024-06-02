@@ -1,9 +1,21 @@
 #include <stdio.h>
-#include "lr20.h"
+//#include "lr20.h"
 #include "matrix.c"
 #include <stdbool.h>
 #include <stdlib.h>
 #include <string.h>
+#include "../data_structures/vector/vector.c"
+
+typedef struct domain{
+    size_t visits;
+    char name[200];
+} domain;
+
+typedef struct node {
+    int key;
+    struct node *left;
+    struct node *right;
+} node;
 
 void matrixFillingZeros(matrix *m, int row, int col){
     for (int indRow = 0; indRow < row; indRow++){
@@ -322,10 +334,57 @@ void task_7(int array[], int lengthArray) {
     printf("\n");
 }
 
+//8
 void task_8(const char *s, int length, const int indexes[], char *newS){
     for (int i = 0; i < length; i++){
         newS[i] = s[indexes[i]];
     }
 
     newS[length] = '\0';
+}
+
+FILE* openFile(char *fileName, char *action){
+    FILE *file = fopen(fileName, action);
+
+    if (file == NULL) {
+        printf("Ошибка при открытии файла\n");
+        exit(1);
+    }
+
+    return file;
+}
+
+void fillingFile(int numsArray[], int lengthArray, char *fileName){
+    FILE *file = openFile(fileName, "w");
+
+    for (int i = 0; i < lengthArray; i++){
+        fprintf(file, "%d ", numsArray[i]);
+    }
+
+    fclose(file);
+}
+
+void readingNumsFilteringAndWriting(vector *v, char *rFileName, int controlNum, char *wFileName){
+    FILE *rFile = openFile(rFileName, "r");
+    FILE *wFile = openFile(wFileName, "w");
+
+    int num;
+
+    while (fscanf(rFile, "%d", &num) == 1){
+        if (num < controlNum){
+            pushBack(v, num);
+
+            fprintf(wFile, "%d ", num);
+        }
+    }
+
+    fclose(rFile);
+    fclose(wFile);
+}
+
+//9
+void task_9(int numsArray[], int lengthArray, int controlNum, char *firstFileName, char *secondFileName, vector *v){
+    fillingFile(numsArray, lengthArray,firstFileName);
+    readingNumsFilteringAndWriting(v, firstFileName, controlNum, secondFileName);
+    shrinkToFit(v);
 }

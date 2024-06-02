@@ -1,7 +1,10 @@
 #include <stdio.h>
 #include "lr20.c"
 #include <assert.h>
-#include "../string/tasks/string_.h"
+#include "../string/tasks/string_.c"
+#include <windows.h>
+#include <conio.h>
+
 
 void test_1(){
     int n = 3;
@@ -136,7 +139,29 @@ void test_8(){
     assert(strcmp(got, expected) == 0);
 }
 
+void test_9(){
+    int numsArray[5] = {2, 4, 1, 3, 5};
+    int lengthArray = 5;
+    int controlNum = 3;
+    char *firstFileName = "C:\\Users\\wwwri\\files\\lr20\\original_task_9.txt";
+    char *secondFileName = "C:\\Users\\wwwri\\files\\lr20\\converted_task_9.txt";
+
+    vector v = createVector(10);
+
+    task_9(numsArray, lengthArray, controlNum, firstFileName, secondFileName, &v);
+
+    int expectedLength = 2;
+    int expectedArrayNums[2] = {2, 1};
+
+    assert(expectedLength == v.size);
+
+    for (int i = 0; i < expectedLength; i++){
+        assert(v.data[i] == expectedArrayNums[i]);
+    }
+}
+
 int main(){
+SetConsoleOutputCP(CP_UTF8);
     test_1();
     test_2();
     test_3();
@@ -145,6 +170,7 @@ int main(){
     test_6();
     test_7();
     test_8();
+    test_9();
 
     return 0;
 }
