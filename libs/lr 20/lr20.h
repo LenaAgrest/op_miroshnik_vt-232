@@ -5,6 +5,11 @@
 #include "matrix.h"
 #include <stdbool.h>
 
+typedef struct domain{
+    size_t visits;
+    char name[200];
+} domain;
+
 //заполняет матрицу нулями
 void matrixFillingZeros(matrix *m, int row, int col);
 
@@ -23,5 +28,13 @@ int sortedNumsCompare(const void * firstNum, const void * secondNum);
 void fillingNumFrameSorted(int *array, matrix m, int indRow, int indCol);
 
 void task_3(matrix *m, int size);
+
+bool searchNumFromArray(const int array[], int length, int num);
+
+int searchDomainInResults(const domain results[], int size, char *s);
+
+void handlerDotPrtNotNull(domain *array, int ind, char *dotPtr, domain results[], int *sizeResult);
+
+void task_4(domain array[], int size);
 
 #endif //LAB_14_LR20_H

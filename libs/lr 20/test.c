@@ -75,10 +75,20 @@ void test_3(){
     assert(areTwoMatricesEqual(&got, &expected));
 }
 
+void test_4(){
+    int size = 1;
+    domain array[1] = {{9001, "discuss.codeforces.com"},};
+
+    task_4(array, size);
+
+    printf("\n");
+}
+
 int main(){
     test_1();
     test_2();
     test_3();
+    test_4();
 
     return 0;
 }

@@ -3,6 +3,7 @@
 #include "matrix.c"
 #include <stdbool.h>
 #include <stdlib.h>
+#include <string.h>
 
 void matrixFillingZeros(matrix *m, int row, int col){
     for (int indRow = 0; indRow < row; indRow++){
@@ -69,7 +70,6 @@ void task_2(matrix m, matrix *newM, int rows, int cols){
     }
 }
 
-
 int sortedNumsCompare(const void * firstNum, const void * secondNum){
     return ( *(int*)firstNum - *(int*)secondNum );
 }
@@ -99,5 +99,72 @@ void task_3(matrix *m, int size){
             m->values[indRow][indCol] = median;
         }
     }
+}
+
+void outputResultDomains(domain *results, int size){
+    for (int i = 0; i < size; i++){
+        printf("%ld %s\n", results[i].visits, results[i].name);
+    }
+}
+
+bool searchNumFromArray(const int array[], int length, int num){
+    for (int i = 0; i < length; i++){
+        if (num == array[i]){
+            return 1;
+        }
+    }
+
+    return 0;
+}
+
+int searchDomainInResults(const domain results[], int size, char *s){
+    for (int i = 0; i < size; i++){
+        if (strcmp(results[i].name, s) == 0){
+            return i;
+        }
+    }
+
+    return size;
+}
+
+void handlerDotPrtNotNull(domain *array, int ind, char *dotPtr, domain results[], int *sizeResult){
+    strcpy(array[ind].name, dotPtr + 1);
+
+    int pos = searchDomainInResults(results, *sizeResult,array[ind].name);
+
+    if (pos == *sizeResult){
+        results[*sizeResult] = array[ind];
+        *sizeResult += 1;
+    } else{
+        results[pos].visits += array[ind].visits;
+    }
+}
+
+//4
+void task_4(domain array[], int size){
+    int closeIndexes[size];
+    int countClose = 0;
+    domain results[200];
+    int sizeResult = 0;
+
+    for (int i = 0; i < size; i++){
+        results[sizeResult++] = array[i];
+    }
+
+    while(countClose != size){
+        for (int i = 0; i < size; i++){
+            if (!searchNumFromArray(closeIndexes, countClose, i)){
+                char *dotPtr = strchr(array[i].name, '.');
+
+                if (dotPtr != NULL){
+                    handlerDotPrtNotNull(array, i, dotPtr, results, &sizeResult);
+                } else{
+                    closeIndexes[countClose++] = i;
+                }
+            }
+        }
+    }
+
+    outputResultDomains(results, sizeResult);
 }
 
