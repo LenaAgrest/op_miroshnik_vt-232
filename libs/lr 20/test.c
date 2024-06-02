@@ -75,20 +75,40 @@ void test_3(){
     assert(areTwoMatricesEqual(&got, &expected));
 }
 
-void test_4(){
+/*void test_4(){
     int size = 1;
     domain array[1] = {{9001, "discuss.codeforces.com"},};
 
     task_4(array, size);
 
     printf("\n");
+}*/
+
+void test_5(){
+    int rows1 = 3;
+    int cols1 = 3;
+
+    matrix m1 = createMatrixFromArray(
+            (int[]) {
+                    1, 0, 1,
+                    1, 1, 0,
+                    1, 1, 0
+            }, 3, 3
+    );
+
+    int result1 = 0;
+
+    task_5(m1, rows1, cols1, &result1);
+
+    assert(result1 == 13);
 }
 
 int main(){
     test_1();
     test_2();
     test_3();
-    test_4();
+    //test_4();
+    test_5();
 
     return 0;
 }

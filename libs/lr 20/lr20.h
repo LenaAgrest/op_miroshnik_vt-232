@@ -37,4 +37,8 @@ void handlerDotPrtNotNull(domain *array, int ind, char *dotPtr, domain results[]
 
 void task_4(domain array[], int size);
 
+void fillingCalcMatrix(matrix m, matrix *calcMatrix, int rows, int cols);
+
+void task_5(matrix m, int rows, int cols, int *result);
+
 #endif //LAB_14_LR20_H
