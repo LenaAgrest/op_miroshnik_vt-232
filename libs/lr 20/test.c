@@ -1,9 +1,10 @@
 #include <stdio.h>
 #include "lr20.c"
 #include <assert.h>
-#include "../string/tasks/string_.c"
 #include <windows.h>
 #include <conio.h>
+#include <unistd.h>
+#include <signal.h>
 
 
 void test_1(){
@@ -160,6 +161,14 @@ void test_9(){
     }
 }
 
+void test_10(){
+    char *fileName = "C:\\Users\\wwwri\\files\\lr20\\original_task_10.txt";
+    int countOutputLines = 1;
+    char text[200] = "abc\nABC\ndef\nDEF";
+
+    task_10(fileName, countOutputLines, text);
+}
+
 int main(){
 SetConsoleOutputCP(CP_UTF8);
     test_1();
@@ -171,6 +180,7 @@ SetConsoleOutputCP(CP_UTF8);
     test_7();
     test_8();
     test_9();
+    test_10();
 
     return 0;
 }

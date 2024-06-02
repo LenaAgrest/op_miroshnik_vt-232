@@ -5,6 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "../data_structures/vector/vector.c"
+#include "C:\Users\wwwri\OneDrive\Рабочий стол\2 семестр\оп\lab 14\op_miroshnik_vt-232\libs\string\tasks\string_.c"
 
 typedef struct domain{
     size_t visits;
@@ -387,4 +388,31 @@ void task_9(int numsArray[], int lengthArray, int controlNum, char *firstFileNam
     fillingFile(numsArray, lengthArray,firstFileName);
     readingNumsFilteringAndWriting(v, firstFileName, controlNum, secondFileName);
     shrinkToFit(v);
+}
+
+void fillingFileWithText(char *fileName, char *text){
+    FILE *file = openFile(fileName, "w");
+    fprintf(file, "%s", text);
+    fclose(file);
+}
+
+//10
+void task_10(char *fileName, size_t countOutputLines, char *text) {
+    fillingFileWithText(fileName, text);
+
+    FILE *file = openFile(fileName, "r");
+
+    char line[127];
+    int count = 0;
+
+    while (fgets(line, 127, file) != NULL) {
+        printf("%s", line);
+        count++;
+
+        if (count == countOutputLines) {
+            printf("Пожалуйста, введите Ctrl + C\n");
+
+            while (getch() != 3);
+        }
+    }
 }

@@ -5,6 +5,7 @@
 #include "matrix.h"
 #include "../data_structures/vector/vector.h"
 #include <signal.h>
+#include <unistd.h>
 
 typedef struct domain{
     size_t visits;
@@ -69,5 +70,9 @@ void fillingFile(int numsArray[], int lengthArray, char *fileName);
 void readingNumsFilteringAndWriting(vector *v, char *rFileName, int controlNum, char *wFileName);
 
 void task_9(int numsArray[], int lengthArray, int controlNum, char *firstFileName, char *secondFileName, vector *v);
+
+void fillingFileWithText(char *fileName, char *text);
+
+void task_10(char *fileName, size_t countOutputLines, char *text);
 
 #endif //LAB_14_LR20_H
