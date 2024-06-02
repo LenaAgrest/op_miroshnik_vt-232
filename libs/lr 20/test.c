@@ -38,7 +38,7 @@ void test_2(){
     );
 
     matrix got = getMemMatrix(r, c);
-    secondTask(start, &got, r, c);
+    task_2(start, &got, r, c);
 
     matrix expected = createMatrixFromArray(
             (int[]) {
@@ -52,9 +52,33 @@ void test_2(){
     assert(areTwoMatricesEqual(&got, &expected));
 }
 
+void test_3(){
+    int n = 3;
+    matrix got = createMatrixFromArray(
+            (int[]) {
+                    10, 20, 30,
+                    25, 35, 45,
+                    15, 25, 35
+            }, 3, 3
+    );
+
+    task_3(&got, n);
+
+    matrix expected = createMatrixFromArray(
+            (int[]) {
+                    10, 20, 30,
+                    25, 25, 45,
+                    15, 25, 35
+            }, 3, 3
+    );
+
+    assert(areTwoMatricesEqual(&got, &expected));
+}
+
 int main(){
     test_1();
     test_2();
+    test_3();
 
     return 0;
 }

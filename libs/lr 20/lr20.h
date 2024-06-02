@@ -16,6 +16,12 @@ int cellResultByPosition(matrix m, int indRow, int indCol, int countNeighbors);
 
 int calculateCountNeighbors(matrix m, int rowInd, int colInd, int rows, int cols);
 
-void secondTask(matrix m, matrix *newM, int rows, int cols);
+void task_2(matrix m, matrix *newM, int rows, int cols);
+
+int sortedNumsCompare(const void * firstNum, const void * secondNum);
+
+void fillingNumFrameSorted(int *array, matrix m, int indRow, int indCol);
+
+void task_3(matrix *m, int size);
 
 #endif //LAB_14_LR20_H

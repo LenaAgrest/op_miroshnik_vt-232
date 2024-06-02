@@ -2,6 +2,7 @@
 #include "lr20.h"
 #include "matrix.c"
 #include <stdbool.h>
+#include <stdlib.h>
 
 void matrixFillingZeros(matrix *m, int row, int col){
     for (int indRow = 0; indRow < row; indRow++){
@@ -58,7 +59,7 @@ int calculateCountNeighbors(matrix m, int rowInd, int colInd, int rows, int cols
 }
 
 //2
-void secondTask(matrix m, matrix *newM, int rows, int cols){
+void task_2(matrix m, matrix *newM, int rows, int cols){
     for (int indRow = 0; indRow < rows; indRow++){
         for (int indCol = 0; indCol < cols; indCol++){
             int countNeighbors = calculateCountNeighbors(m, indRow, indCol, rows, cols);
@@ -67,3 +68,36 @@ void secondTask(matrix m, matrix *newM, int rows, int cols){
         }
     }
 }
+
+
+int sortedNumsCompare(const void * firstNum, const void * secondNum){
+    return ( *(int*)firstNum - *(int*)secondNum );
+}
+
+void fillingNumFrameSorted(int *array, matrix m, int indRow, int indCol){
+    int arrayInd = 0;
+    for (int mIndRow = indRow - 1; mIndRow < indRow + 2; mIndRow++){
+        for(int mIndCol = indCol - 1; mIndCol < indCol + 2; mIndCol++){
+            if (mIndRow != indRow || mIndCol != indCol){
+                array[arrayInd++] = m.values[mIndRow][mIndCol];
+            }
+        }
+    }
+
+    qsort(array, 8, sizeof(int), sortedNumsCompare);
+}
+
+//3
+void task_3(matrix *m, int size){
+    int frame[8];
+    for (int indRow = 1; indRow < size - 1; indRow++){
+        for(int indCol = 1; indCol < size - 1; indCol++){
+            fillingNumFrameSorted(frame, *m, indRow, indCol);
+
+            int median = (frame[3] + frame[4]) / 2;
+
+            m->values[indRow][indCol] = median;
+        }
+    }
+}
+
