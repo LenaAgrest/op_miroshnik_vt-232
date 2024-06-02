@@ -169,6 +169,16 @@ void test_10(){
     task_10(fileName, countOutputLines, text);
 }
 
+void test_11() {
+    int n = 10;
+    int q = 3;
+    char *dict[100] = {"aa", "aaa", "aab", "ab", "abc", "ac", "ba", "daa", "dab", "dadba"};
+    char *requests[100] = {"a", "da", "da"};
+    int num_in_req[3] = {4, 2, 4};
+
+    task_11(dict, requests, num_in_req, n, q);
+}
+
 int main(){
 SetConsoleOutputCP(CP_UTF8);
     test_1();
@@ -177,10 +187,11 @@ SetConsoleOutputCP(CP_UTF8);
     //test_4();
     test_5();
     test_6();
-    test_7();
+    //test_7();
     test_8();
     test_9();
-    test_10();
+    //test_10();
+    test_11();
 
     return 0;
 }

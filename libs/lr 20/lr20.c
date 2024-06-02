@@ -7,6 +7,10 @@
 #include "../data_structures/vector/vector.c"
 #include "C:\Users\wwwri\OneDrive\Рабочий стол\2 семестр\оп\lab 14\op_miroshnik_vt-232\libs\string\tasks\string_.c"
 
+#define MAXN 300005
+#define MAXQ 5005
+#define MAXLEN 2000005
+
 typedef struct domain{
     size_t visits;
     char name[200];
@@ -413,6 +417,37 @@ void task_10(char *fileName, size_t countOutputLines, char *text) {
             printf("Пожалуйста, введите Ctrl + C\n");
 
             while (getch() != 3);
+        }
+    }
+}
+
+void task_11(char **dict, char **requests, int *num_in_req, int n, int q) {
+    int temp_pepe = 0;
+    int temp_pepe2 = 0;
+
+    for (int i = 0; i < q; ++i) {
+        for (int j = 0; j < n; ++j) {
+
+            if (strstr(dict[j], requests[i]) != NULL) {
+                temp_pepe++;
+                temp_pepe2++;
+            } else
+                temp_pepe++;
+
+            if (temp_pepe2 == num_in_req[i]) {
+                printf("%d\n", temp_pepe);
+                break;
+            }
+        }
+
+        if (num_in_req[i] > temp_pepe2) {
+            printf("-1\n");
+
+            temp_pepe = 0;
+            temp_pepe2 = 0;
+        } else {
+            temp_pepe = 0;
+            temp_pepe2 = 0;
         }
     }
 }

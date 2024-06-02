@@ -75,4 +75,6 @@ void fillingFileWithText(char *fileName, char *text);
 
 void task_10(char *fileName, size_t countOutputLines, char *text);
 
+void task_11(char **dict, char **requests, int *num_in_req, int n, int q);
+
 #endif //LAB_14_LR20_H
