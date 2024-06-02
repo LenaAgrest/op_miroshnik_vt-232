@@ -41,4 +41,6 @@ void fillingCalcMatrix(matrix m, matrix *calcMatrix, int rows, int cols);
 
 void task_5(matrix m, int rows, int cols, int *result);
 
+void task_6(const char *s, int length, char *result, int *resultLength);
+
 #endif //LAB_14_LR20_H

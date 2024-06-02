@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include "lr20.c"
 #include <assert.h>
+#include "../string/tasks/string_.h"
 
 void test_1(){
     int n = 3;
@@ -103,12 +104,26 @@ void test_5(){
     assert(result1 == 13);
 }
 
+void test_6(){
+    char s[10] = "IIIDIDDD";
+    int len = 8;
+    char got[10];
+    int resLen;
+
+    task_6(s, len, got, &resLen);
+
+    char expected[10] = "123549876";
+
+    assert(strcmp(got, expected) == 0);
+}
+
 int main(){
     test_1();
     test_2();
     test_3();
     //test_4();
     test_5();
+    test_6();
 
     return 0;
 }
