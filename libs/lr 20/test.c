@@ -117,6 +117,12 @@ void test_6(){
     assert(strcmp(got, expected) == 0);
 }
 
+void test_7(){
+    int array[6] = {3, 2, 1, 6, 0, 5};
+    int lengthArray = 6;
+    task_7(array, lengthArray);
+}
+
 int main(){
     test_1();
     test_2();
@@ -124,6 +130,7 @@ int main(){
     //test_4();
     test_5();
     test_6();
+    test_7();
 
     return 0;
 }

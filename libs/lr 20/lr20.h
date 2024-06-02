@@ -10,6 +10,12 @@ typedef struct domain{
     char name[200];
 } domain;
 
+typedef struct node {
+    int key;
+    struct node *left;
+    struct node *right;
+} node;
+
 //заполняет матрицу нулями
 void matrixFillingZeros(matrix *m, int row, int col);
 
@@ -42,5 +48,15 @@ void fillingCalcMatrix(matrix m, matrix *calcMatrix, int rows, int cols);
 void task_5(matrix m, int rows, int cols, int *result);
 
 void task_6(const char *s, int length, char *result, int *resultLength);
+
+node *createNode(int k);
+
+int searchMaxInd(int array[], int start, int end);
+
+void buildNodes(node *currentNode, int array[], int startInd, int endInd, bool isLeft);
+
+void breadthFirstTraversal(node *root);
+
+void task_7(int array[], int lengthArray);
 
 #endif //LAB_14_LR20_H

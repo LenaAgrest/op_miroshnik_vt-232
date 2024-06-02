@@ -106,7 +106,6 @@ void swap_pointers(int **a, int **b) {
     *b = t;
 }
 
-//выполняет сортировку вставками строк матрицы m по неубыванию значения функции criteria применяемой для строк
 void insertionSortRowsMatrixByRowCriteria(matrix m, int (*criteria)(int*, int)){
     int *criteriaValues = (int*)malloc(sizeof(int) * m.nRows);
 
